@@ -7,16 +7,17 @@
 #define F_CPU 1000000UL
 #include <avr/io.h>
 #include <util/delay.h>
-
+#include "Common/Common_Macros.h"
+#include "Common/Common_Types.h"
 int main(void)
 {
     /* Replace with your application code */
 	DDRA = 0xFF;
     while (1) 
     {
-		PORTA = 0xFF;
+		SET_BIT(PORTA, 5);
 		_delay_ms(1000);
-		PORTA = 0x00;
+		CLEAR_BIT(PORTA, 5);
 		_delay_ms(1000);
     }
 }

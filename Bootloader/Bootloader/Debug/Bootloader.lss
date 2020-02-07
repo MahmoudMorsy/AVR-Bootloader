@@ -13,19 +13,19 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
   4 .debug_aranges 00000020  00000000  00000000  00000160  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_info   0000062a  00000000  00000000  00000180  2**0
+  5 .debug_info   0000063f  00000000  00000000  00000180  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_abbrev 0000058b  00000000  00000000  000007aa  2**0
+  6 .debug_abbrev 0000058b  00000000  00000000  000007bf  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   0000024d  00000000  00000000  00000d35  2**0
+  7 .debug_line   0000024d  00000000  00000000  00000d4a  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_frame  00000024  00000000  00000000  00000f84  2**2
+  8 .debug_frame  00000024  00000000  00000000  00000f98  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    00000323  00000000  00000000  00000fa8  2**0
+  9 .debug_str    00000346  00000000  00000000  00000fbc  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    00000048  00000000  00000000  000012cb  2**0
+ 10 .debug_loc    00000048  00000000  00000000  00001302  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 00000010  00000000  00000000  00001313  2**0
+ 11 .debug_ranges 00000010  00000000  00000000  0000134a  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -67,8 +67,8 @@ Disassembly of section .text:
   68:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
 
 0000006c <main>:
-#include <util/delay.h>
-
+#include "Common/Common_Macros.h"
+#include "Common/Common_Types.h"
 int main(void)
 {
     /* Replace with your application code */
@@ -77,8 +77,8 @@ int main(void)
   6e:	8a bb       	out	0x1a, r24	; 26
     while (1) 
     {
-		PORTA = 0xFF;
-  70:	8b bb       	out	0x1b, r24	; 27
+		SET_BIT(PORTA, 5);
+  70:	dd 9a       	sbi	0x1b, 5	; 27
 	#else
 		//round up by default
 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
@@ -86,22 +86,22 @@ int main(void)
 
 	__builtin_avr_delay_cycles(__ticks_dc);
   72:	2f e3       	ldi	r18, 0x3F	; 63
-  74:	3d e0       	ldi	r19, 0x0D	; 13
+  74:	8d e0       	ldi	r24, 0x0D	; 13
   76:	93 e0       	ldi	r25, 0x03	; 3
   78:	21 50       	subi	r18, 0x01	; 1
-  7a:	30 40       	sbci	r19, 0x00	; 0
+  7a:	80 40       	sbci	r24, 0x00	; 0
   7c:	90 40       	sbci	r25, 0x00	; 0
   7e:	e1 f7       	brne	.-8      	; 0x78 <main+0xc>
   80:	00 c0       	rjmp	.+0      	; 0x82 <main+0x16>
   82:	00 00       	nop
 		_delay_ms(1000);
-		PORTA = 0x00;
-  84:	1b ba       	out	0x1b, r1	; 27
+		CLEAR_BIT(PORTA, 5);
+  84:	dd 98       	cbi	0x1b, 5	; 27
   86:	2f e3       	ldi	r18, 0x3F	; 63
-  88:	3d e0       	ldi	r19, 0x0D	; 13
+  88:	8d e0       	ldi	r24, 0x0D	; 13
   8a:	93 e0       	ldi	r25, 0x03	; 3
   8c:	21 50       	subi	r18, 0x01	; 1
-  8e:	30 40       	sbci	r19, 0x00	; 0
+  8e:	80 40       	sbci	r24, 0x00	; 0
   90:	90 40       	sbci	r25, 0x00	; 0
   92:	e1 f7       	brne	.-8      	; 0x8c <main+0x20>
   94:	00 c0       	rjmp	.+0      	; 0x96 <main+0x2a>
