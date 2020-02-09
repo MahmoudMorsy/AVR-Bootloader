@@ -26,7 +26,7 @@
 boolean Eeprom_WriteByte(uint16 Param_Address, uint8 Param_Data)
 {
 	/* Checking if the target address is valid */
-	if ((Param_Address >= EEPROM_START_ADDRESS) || (Param_Address <= EEPROM_LAST_ADDRESS))
+	if ((Param_Address >= EEPROM_START_ADDRESS) && (Param_Address <= EEPROM_LAST_ADDRESS))
 	{
 		/* Disable Global Interrupts */
 		cli();
@@ -64,7 +64,8 @@ boolean Eeprom_WriteByte(uint16 Param_Address, uint8 Param_Data)
 boolean Eeprom_ReadByte(uint16 Param_Address, uint8* Param_DataOutPtr)
 {
 	/* Checking if the target address is valid */
-	if ((Param_Address >= EEPROM_START_ADDRESS) || (Param_Address <= EEPROM_LAST_ADDRESS))
+	if ((Param_Address >= EEPROM_START_ADDRESS) && (Param_Address <= EEPROM_LAST_ADDRESS) 
+	&& (NULL_PTR != Param_DataOutPtr))
 	{
 		/* Disable Global Interrupts */
 		cli();
@@ -100,7 +101,8 @@ boolean Eeprom_WriteBuffer(uint16 Param_StartAddress, uint8* Param_DataPtr, uint
 	
 	/* Checking if the target address and number of bytes are valid */
 	if ( (Param_StartAddress >= EEPROM_START_ADDRESS) && (Param_NumberOfBytes > 0)
-	   && ((Param_StartAddress + Param_NumberOfBytes) <= (EEPROM_LAST_ADDRESS+1)) )
+	&& ((Param_StartAddress + Param_NumberOfBytes) <= (EEPROM_LAST_ADDRESS+1))
+	&& (NULL_PTR != Param_DataPtr) )
 	{
 		for (uint16 Loc_CurrentAddress = Param_StartAddress; Loc_CurrentAddress<(Param_StartAddress+Param_NumberOfBytes); Loc_CurrentAddress++)
 		{
@@ -129,7 +131,8 @@ boolean Eeprom_ReadBuffer(uint16 Param_StartAddress, uint8* Param_DataOutPtr, ui
 	
 	/* Checking if the target address and number of bytes are valid */
 	if ( (Param_StartAddress >= EEPROM_START_ADDRESS) && (Param_NumberOfBytes > 0)
-	&& ((Param_StartAddress + Param_NumberOfBytes) <= (EEPROM_LAST_ADDRESS+1)) )
+	&& ((Param_StartAddress + Param_NumberOfBytes) <= (EEPROM_LAST_ADDRESS+1)) 
+	&& (NULL_PTR != Param_DataOutPtr) )
 	{
 		for (uint16 Loc_CurrentAddress = Param_StartAddress; Loc_CurrentAddress<(Param_StartAddress+Param_NumberOfBytes); Loc_CurrentAddress++)
 		{

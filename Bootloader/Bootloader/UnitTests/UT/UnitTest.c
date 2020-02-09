@@ -24,8 +24,11 @@
 /* Main function to run all the modules test cases */
 void UT_RunAllTests()
 {
+	UT_PRINT_HEADER();
+	
 	/* USER-MODIFIED-SECTION : List of All unit tests main function to be called here */
 	UT_Eeprom_RunAllTests();
+	UT_SEPARATE_TESTMODULES();
 }
 #else
 /* Empty function */

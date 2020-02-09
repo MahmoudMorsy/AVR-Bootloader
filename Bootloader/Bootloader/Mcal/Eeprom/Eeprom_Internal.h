@@ -50,12 +50,5 @@
 	#define EEPROM_EEDR                                                                        EEDR
 	#define EEPROM_SPMCR                                                                      SPMCR
 #endif
-/**************************************************************************************************
-*                                       FUNCTION PROTOTYPES                                       *
-**************************************************************************************************/
-boolean Eeprom_WriteByte(uint16 Param_Address, uint8 Param_Data);
-boolean Eeprom_ReadByte(uint16 Param_Address, uint8* Param_DataOutPtr);
-boolean Eeprom_WriteBuffer(uint16 Param_StartAddress, uint8* Param_DataPtr, uint16 Param_NumberOfBytes);
-boolean Eeprom_ReadBuffer(uint16 Param_StartAddress, uint8* Param_DataOutPtr, uint16 Param_NumberOfBytes);
 
 #endif /* EEPROM_H_ */

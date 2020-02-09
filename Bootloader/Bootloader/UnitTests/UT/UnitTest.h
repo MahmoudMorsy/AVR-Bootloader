@@ -39,15 +39,24 @@ double: "%f", \
 long double: "%Lf", \
 char *: "%s", \
 void *: "%p")
+/* Macro function to print test cases header once */
+#define UT_PRINT_HEADER() printf(" STATUS | MODULE | TESTCASE |   CUSTOM MESSAGE   |\n");\
+						  printf("--------------------------------------------------\n")
+
+/* Macro function to print a separator line between test cases */
+#define UT_SEPARATE_TESTCASES() printf("\n")
+
+/* Macro function to print a separator line between test modules */
+#define UT_SEPARATE_TESTMODULES() printf(".                   ----------                   .\n")
 
 /* Generic printing macro function wrapping */
 #define print(x) printf(printf_dec_format(x), x)
 
 /* Macro function for printing test passed message */
-#define UT_PASS_MSG(ModuleName, TestName, PassedMsg) printf("PASSED @%s (%s): %s.\n", ModuleName, TestName, PassedMsg)
+#define UT_PASS_MSG(ModuleName, TestName, PassedMsg) printf(" PASSED | @%s [%s]: %s.\n", ModuleName, TestName, PassedMsg)
 
 /* Macro function for printing test failed message */
-#define UT_FAIL_MSG(ModuleName, TestName, FailureMsg) printf("FAILED @%s (%s): %s.\n", ModuleName, TestName, FailureMsg)
+#define UT_FAIL_MSG(ModuleName, TestName, FailureMsg) printf(" FAILED | @%s [%s]: %s.\n", ModuleName, TestName, FailureMsg)
 
 /* Generic macro function to evaluate a passed condition */
 #define UT_CONDITION_EVAL(Condition, CompareVariable,  ExpectedValue,  TestName, ModuleName, PassedMsg, FailureMsg)\
@@ -58,9 +67,9 @@ if (Condition)\
 else\
 {\
 	UT_FAIL_MSG(ModuleName, TestName, FailureMsg);\
-	printf("   Expected Value = ");\
+	printf("    Expected Value = ");\
 	print(ExpectedValue);\
-	printf(" ,but Actual Value = ");\
+	printf(", but Actual Value = ");\
 	print(CompareVariable);\
 	printf(".\n");\
 }
