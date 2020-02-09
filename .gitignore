@@ -4,3 +4,8 @@ Bootloader/.vs/Bootloader/v14/.atsuo
 *.gch
 *.o
 *.o
+*.map
+*.srec
+*.mk
+*.o
+*.d
