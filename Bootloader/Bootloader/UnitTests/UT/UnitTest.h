@@ -1,17 +1,27 @@
-/*
- * UnitTest.h
- *
- * Created: 2/8/2020 5:09:05 AM
- *  Author: MahmoudMorsy
- */ 
-
-
+/**************************************************************************************************
+* FILE INFORMATION
+* -------------------------------------------------------------------------------------------------
+* NAME:              UnitTest.h
+* MODULE:            Unit Test
+* AUTHOR:            MahmoudMorsy
+* DESCRIPTION:       Header file for Unit test internal environment and macro functions.
+* CREATION DATE:     8/2/2020
+* MODIFICATION DATE: 9/2/2020
+**************************************************************************************************/
 #ifndef UNITTEST_H_
 #define UNITTEST_H_
+
+/**************************************************************************************************
+*                                       INCLUDES & LIBRARIES                                      *
+**************************************************************************************************/
 #include "Common.h"
 #if UNIT_TESTING == STD_ON
 #include <stdio.h>
 
+/**************************************************************************************************
+*                                         MACRO FUNCTIONS                                         *
+**************************************************************************************************/
+/* Generic printing macro function */
 #define printf_dec_format(x) _Generic((x), \
 char: "%c", \
 signed char: "%hhd", \
@@ -30,11 +40,16 @@ long double: "%Lf", \
 char *: "%s", \
 void *: "%p")
 
+/* Generic printing macro function wrapping */
 #define print(x) printf(printf_dec_format(x), x)
 
+/* Macro function for printing test passed message */
 #define UT_PASS_MSG(ModuleName, TestName, PassedMsg) printf("PASSED @%s (%s): %s.\n", ModuleName, TestName, PassedMsg)
+
+/* Macro function for printing test failed message */
 #define UT_FAIL_MSG(ModuleName, TestName, FailureMsg) printf("FAILED @%s (%s): %s.\n", ModuleName, TestName, FailureMsg)
-	
+
+/* Generic macro function to evaluate a passed condition */
 #define UT_CONDITION_EVAL(Condition, CompareVariable,  ExpectedValue,  TestName, ModuleName, PassedMsg, FailureMsg)\
 if (Condition)\
 {\
@@ -122,6 +137,10 @@ else\
 #define UT_ASSERT_GREATERTHAN_OR_EQ(TestName, ModuleName, CompareVariable,  ExpectedValue,  PassedMsg, FailureMsg)\
 	UT_CONDITION_EVAL(CompareVariable >= ExpectedValue,  CompareVariable,  ExpectedValue,  TestName, ModuleName, PassedMsg, FailureMsg);
 
+
+/**************************************************************************************************
+*                                       FUNCTION PROTOTYPES                                       *
+**************************************************************************************************/
 void UT_RunAllTests();
 
 #endif

@@ -1,40 +1,28 @@
-/*
- * Eeprom.c
- *
- * Created: 2/7/2020 8:22:40 PM
- *  Author: MahmoudMorsy
- */ 
-#include "Eeprom.h"
+/**************************************************************************************************
+* FILE INFORMATION
+* -------------------------------------------------------------------------------------------------
+* NAME:              Eeprom.c
+* MODULE:            Eeprom
+* AUTHOR:            MahmoudMorsy
+* DESCRIPTION:       Eeprom driver functional implementation
+* CREATION DATE:     7/2/2020
+* MODIFICATION DATE: 9/2/2020
+**************************************************************************************************/
+#include "Eeprom_Internal.h"
 
-/* Stubbing for unit testing */
+/**************************************************************************************************
+*                                         GLOBAL VARIABLES                                        *
+**************************************************************************************************/
 #if UNIT_TESTING == STD_ON
-/* Replacing Registers with Global Variables */
-	uint8 Eeprom_EECR                      = 0;
-	uint16 Eeprom_EEAR                     = 0;
-	uint8 Eeprom_EEDR                      = 0;
-	uint8 Eeprom_SPMCR                     = 0;
-	#define EEPROM_EECR             Eeprom_EECR
-	#define EEPROM_EEAR             Eeprom_EEAR
-	#define EEPROM_EEDR             Eeprom_EEDR
-	#define EEPROM_SPMCR           Eeprom_SPMCR
-	#define SPMEN                             0
-	#define EERIE                             3
-	#define EEMWE                             2
-	#define EEWE                              1
-	#define EERE                              0
-	#define cli()
-	#define sei()
-	
-/* Putting actual register addresses */
-#else
-	#include <avr/io.h>
-	#include <avr/interrupt.h>
-	#define EEPROM_EECR                    EECR
-	#define EEPROM_EEAR                    EEAR
-	#define EEPROM_EEDR                    EEDR
-	#define EEPROM_SPMCR                  SPMCR
+	uint8 Eeprom_EECR                                                                          = 0;
+	uint16 Eeprom_EEAR                                                                         = 0;
+	uint8 Eeprom_EEDR                                                                          = 0;
+	uint8 Eeprom_SPMCR                                                                         = 0;
 #endif
 
+/**************************************************************************************************
+*                                     FUNCTIONS IMPLEMENTATION                                    *
+**************************************************************************************************/
 boolean Eeprom_WriteByte(uint16 Param_Address, uint8 Param_Data)
 {
 	/* Checking if the target address is valid */

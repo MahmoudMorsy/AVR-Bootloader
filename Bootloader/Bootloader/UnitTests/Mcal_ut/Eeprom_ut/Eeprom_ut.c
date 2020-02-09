@@ -1,9 +1,13 @@
-/*
- * Eeprom_ut.c
- *
- * Created: 2/7/2020 8:27:35 PM
- *  Author: MahmoudMorsy
- */ 
+/**************************************************************************************************
+* FILE INFORMATION
+* -------------------------------------------------------------------------------------------------
+* NAME:              Eeprom_ut.c
+* MODULE:            Eeprom Unit Test
+* AUTHOR:            MahmoudMorsy
+* DESCRIPTION:       Unit test implementation for Eeprom Mcal driver
+* CREATION DATE:     7/2/2020
+* MODIFICATION DATE: 9/2/2020
+**************************************************************************************************/
 #include "Eeprom_ut.h"
 #if UNIT_TESTING == STD_ON
 static void Test_WriteByte()
