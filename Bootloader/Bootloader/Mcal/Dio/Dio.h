@@ -13,11 +13,11 @@
 #include "Common/Common_Types.h"
 
 void Dio_WritePin(uint8 portNumber, uint8 pinNumber, uint8 value);
-uint8 Dio_ReadPin(uint8 portNumber, uint8 pinNumber);
-void Dio_WritePort(uint8 portNumber, uint8 value);
-uint8 Dio_ReadPort(uint8 portNumber);
-void Dio_SetPinDirection(uint8 portNumber, uint8 pinNumber, uint8 mode);
-void Dio_SetPortDirection(uint8 portNumber, uint8 mode);
+uint8 Dio_ReadPin(uint8 Param_PortNumber, uint8 Param_PinNumber)
+void Dio_WritePort(uint8 Param_PortNumber, uint8 Param_value)
+uint8 Dio_ReadPort(uint8 Param_PortNumber)
+void Dio_SetPinDirection(uint8 Param_PortNumber, uint8 Param_PinNumber, uint8 mode);
+void Dio_SetPortDirection(uint8 Param_PortNumber, uint8 mode)
 
 
 
