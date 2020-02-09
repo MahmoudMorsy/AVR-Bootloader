@@ -9,8 +9,7 @@
 #ifndef EEPROM_H_
 #define EEPROM_H_
 
-#include "Common/Common_Types.h"
-#include "Common/Common_Macros.h"
+#include "Common.h"
 
 #define EEPROM_START_ADDRESS 0
 #define EEPROM_LAST_ADDRESS 1023

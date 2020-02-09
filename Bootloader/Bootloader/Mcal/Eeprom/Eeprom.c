@@ -5,26 +5,34 @@
  *  Author: MahmoudMorsy
  */ 
 #include "Eeprom.h"
-#include <avr/io.h>
-#include <avr/interrupt.h>
 
 /* Stubbing for unit testing */
-#ifdef UNIT_TESTING
+#if UNIT_TESTING == STD_ON
 /* Replacing Registers with Global Variables */
-uint8 Eeprom_EECR = 0;
-uint16 Eeprom_EEAR = 0;
-uint8 Eeprom_EEDR = 0;
-uint8 Eeprom_SPMCR = 0;
-#define EEPROM_EECR Eeprom_EECR
-#define EEPROM_EEAR Eeprom_EEAR
-#define EEPROM_EEDR Eeprom_EEDR
-#define EEPROM_EEDR Eeprom_SPMCR
+	uint8 Eeprom_EECR                      = 0;
+	uint16 Eeprom_EEAR                     = 0;
+	uint8 Eeprom_EEDR                      = 0;
+	uint8 Eeprom_SPMCR                     = 0;
+	#define EEPROM_EECR             Eeprom_EECR
+	#define EEPROM_EEAR             Eeprom_EEAR
+	#define EEPROM_EEDR             Eeprom_EEDR
+	#define EEPROM_SPMCR           Eeprom_SPMCR
+	#define SPMEN                             0
+	#define EERIE                             3
+	#define EEMWE                             2
+	#define EEWE                              1
+	#define EERE                              0
+	#define cli()
+	#define sei()
+	
 /* Putting actual register addresses */
 #else
-#define EEPROM_EECR EECR
-#define EEPROM_EEAR EEAR
-#define EEPROM_EEDR EEDR
-#define EEPROM_SPMCR SPMCR
+	#include <avr/io.h>
+	#include <avr/interrupt.h>
+	#define EEPROM_EECR                    EECR
+	#define EEPROM_EEAR                    EEAR
+	#define EEPROM_EEDR                    EEDR
+	#define EEPROM_SPMCR                  SPMCR
 #endif
 
 boolean Eeprom_WriteByte(uint16 Param_Address, uint8 Param_Data)
@@ -35,9 +43,13 @@ boolean Eeprom_WriteByte(uint16 Param_Address, uint8 Param_Data)
 		/* Disable Global Interrupts */
 		cli();
 		/* Poll until EEWE bit in EECR register is equal to 0 */
-		while (BIT_IS_SET(EEPROM_EECR,EEWE));
+		#if UNIT_TESTING == STD_OFF
+			while (BIT_IS_SET(EEPROM_EECR,EEWE));
+		#endif
 		/* Poll until SPMEN bit in SPMCR register is equal to 0 */
-		while (BIT_IS_SET(EEPROM_SPMCR,SPMEN));
+		#if UNIT_TESTING == STD_OFF
+			while (BIT_IS_SET(EEPROM_SPMCR,SPMEN));
+		#endif
 		/* Write EEPROM target address to EEAR */
 		EEPROM_EEAR = Param_Address;
 		/* Write data into EEPROM buffer register EEDR */
@@ -47,7 +59,9 @@ boolean Eeprom_WriteByte(uint16 Param_Address, uint8 Param_Data)
 		/* Write logical one to EEWE bit in EECR to trigger the EEPROM write operation */
 		SET_BIT(EEPROM_EECR, EEWE);
 		/* Wait until EEWE bit is cleared (EEPROM write finished) */
-		while (BIT_IS_SET(EEPROM_EECR,EEWE));
+		#if UNIT_TESTING == STD_OFF
+			while (BIT_IS_SET(EEPROM_EECR,EEWE));
+		#endif
 		/* Re-enable Global Interrupts */
 		sei();
 		return TRUE;
@@ -67,9 +81,13 @@ boolean Eeprom_ReadByte(uint16 Param_Address, uint8* Param_DataOutPtr)
 		/* Disable Global Interrupts */
 		cli();
 		/* Poll until EEWE bit in EECR register is equal to 0 */
-		while (BIT_IS_SET(EEPROM_EECR,EEWE));
+		#if UNIT_TESTING == STD_OFF
+			while (BIT_IS_SET(EEPROM_EECR,EEWE));
+		#endif
 		/* Poll until SPMEN bit in SPMCR register is equal to 0 */
-		while (BIT_IS_SET(EEPROM_SPMCR,SPMEN));
+		#if UNIT_TESTING == STD_OFF
+			while (BIT_IS_SET(EEPROM_SPMCR,SPMEN));
+		#endif
 		/* Write EEPROM target address to EEAR */
 		EEPROM_EEAR = Param_Address;
 		/* Write logical one to EERE bit in EECR to trigger the EEPROM read operation */

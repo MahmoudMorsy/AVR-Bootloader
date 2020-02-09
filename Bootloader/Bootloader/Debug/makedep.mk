@@ -48,3 +48,5 @@ UnitTests\SWC_ut\AppLoader_ut\AppLoader_ut.c
 
 UnitTests\SWC_ut\HealthMgr_ut\HealthMgr_ut.c
 
+UnitTests\UT\UnitTest.c
+

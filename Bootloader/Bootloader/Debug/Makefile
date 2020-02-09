@@ -60,6 +60,7 @@ SUBDIRS :=  \
 ../UnitTests/Mcal_ut/Fls_ut \
 ../UnitTests/Mcal_ut/Uart_ut \
 ../UnitTests/Mcal_ut/Wdg_ut \
+../UnitTests/UT \
 ../UnitTests/SWC_ut \
 ../UnitTests/SWC_ut/AppLoader_ut \
 ../UnitTests/SWC_ut/HealthMgr_ut
@@ -89,7 +90,8 @@ C_SRCS +=  \
 ../UnitTests/Mcal_ut/Uart_ut/Uart_ut.c \
 ../UnitTests/Mcal_ut/Wdg_ut/Wdg_ut.c \
 ../UnitTests/SWC_ut/AppLoader_ut/AppLoader_ut.c \
-../UnitTests/SWC_ut/HealthMgr_ut/HealthMgr_ut.c
+../UnitTests/SWC_ut/HealthMgr_ut/HealthMgr_ut.c \
+../UnitTests/UT/UnitTest.c
 
 
 PREPROCESSING_SRCS += 
@@ -121,7 +123,8 @@ UnitTests/Mcal_ut/Fls_ut/Fls_ut.o \
 UnitTests/Mcal_ut/Uart_ut/Uart_ut.o \
 UnitTests/Mcal_ut/Wdg_ut/Wdg_ut.o \
 UnitTests/SWC_ut/AppLoader_ut/AppLoader_ut.o \
-UnitTests/SWC_ut/HealthMgr_ut/HealthMgr_ut.o
+UnitTests/SWC_ut/HealthMgr_ut/HealthMgr_ut.o \
+UnitTests/UT/UnitTest.o
 
 OBJS_AS_ARGS +=  \
 HwAb/ComAb/ComAb.o \
@@ -146,7 +149,8 @@ UnitTests/Mcal_ut/Fls_ut/Fls_ut.o \
 UnitTests/Mcal_ut/Uart_ut/Uart_ut.o \
 UnitTests/Mcal_ut/Wdg_ut/Wdg_ut.o \
 UnitTests/SWC_ut/AppLoader_ut/AppLoader_ut.o \
-UnitTests/SWC_ut/HealthMgr_ut/HealthMgr_ut.o
+UnitTests/SWC_ut/HealthMgr_ut/HealthMgr_ut.o \
+UnitTests/UT/UnitTest.o
 
 C_DEPS +=  \
 HwAb/ComAb/ComAb.d \
@@ -171,7 +175,8 @@ UnitTests/Mcal_ut/Fls_ut/Fls_ut.d \
 UnitTests/Mcal_ut/Uart_ut/Uart_ut.d \
 UnitTests/Mcal_ut/Wdg_ut/Wdg_ut.d \
 UnitTests/SWC_ut/AppLoader_ut/AppLoader_ut.d \
-UnitTests/SWC_ut/HealthMgr_ut/HealthMgr_ut.d
+UnitTests/SWC_ut/HealthMgr_ut/HealthMgr_ut.d \
+UnitTests/UT/UnitTest.d
 
 C_DEPS_AS_ARGS +=  \
 HwAb/ComAb/ComAb.d \
@@ -196,7 +201,8 @@ UnitTests/Mcal_ut/Fls_ut/Fls_ut.d \
 UnitTests/Mcal_ut/Uart_ut/Uart_ut.d \
 UnitTests/Mcal_ut/Wdg_ut/Wdg_ut.d \
 UnitTests/SWC_ut/AppLoader_ut/AppLoader_ut.d \
-UnitTests/SWC_ut/HealthMgr_ut/HealthMgr_ut.d
+UnitTests/SWC_ut/HealthMgr_ut/HealthMgr_ut.d \
+UnitTests/UT/UnitTest.d
 
 OUTPUT_FILE_PATH +=Bootloader.elf
 
@@ -215,161 +221,168 @@ LINKER_SCRIPT_DEP+=
 HwAb/ComAb/ComAb.o: ../HwAb/ComAb/ComAb.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\include" -I".."  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\include" -I".." -I"../Common" -I"../HwAb" -I"../Mcal" -I"../UnitTests" -I"../UnitTests/UT" -I"../HwAb/ComAb" -I"../HwAb/IoHwAb" -I"../HwAb/MemAb" -I"../Mcal/Adc" -I"../Mcal/Dio" -I"../Mcal/Eeprom" -I"../Mcal/Fls" -I"../Mcal/Uart" -I"../Mcal/Wdg" -I"../SWC/AppLoader" -I"../SWC/HealthMgr" -I"../UnitTests/HwAb_ut/ComAb_ut" -I"../UnitTests/HwAb_ut/IoHwAb_ut" -I"../UnitTests/HwAb_ut/MemAb_ut" -I"../UnitTests/Mcal_ut/Adc_ut" -I"../UnitTests/Mcal_ut/Dio_ut" -I"../UnitTests/Mcal_ut/Eeprom_ut" -I"../UnitTests/Mcal_ut/Fls_ut" -I"../UnitTests/Mcal_ut/Uart_ut" -I"../UnitTests/Mcal_ut/Wdg_ut" -I"../UnitTests/SWC_ut/AppLoader_ut" -I"../UnitTests/SWC_ut/HealthMgr_ut"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 HwAb/IoHwAb/IoHwAb.o: ../HwAb/IoHwAb/IoHwAb.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\include" -I".."  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\include" -I".." -I"../Common" -I"../HwAb" -I"../Mcal" -I"../UnitTests" -I"../UnitTests/UT" -I"../HwAb/ComAb" -I"../HwAb/IoHwAb" -I"../HwAb/MemAb" -I"../Mcal/Adc" -I"../Mcal/Dio" -I"../Mcal/Eeprom" -I"../Mcal/Fls" -I"../Mcal/Uart" -I"../Mcal/Wdg" -I"../SWC/AppLoader" -I"../SWC/HealthMgr" -I"../UnitTests/HwAb_ut/ComAb_ut" -I"../UnitTests/HwAb_ut/IoHwAb_ut" -I"../UnitTests/HwAb_ut/MemAb_ut" -I"../UnitTests/Mcal_ut/Adc_ut" -I"../UnitTests/Mcal_ut/Dio_ut" -I"../UnitTests/Mcal_ut/Eeprom_ut" -I"../UnitTests/Mcal_ut/Fls_ut" -I"../UnitTests/Mcal_ut/Uart_ut" -I"../UnitTests/Mcal_ut/Wdg_ut" -I"../UnitTests/SWC_ut/AppLoader_ut" -I"../UnitTests/SWC_ut/HealthMgr_ut"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 HwAb/MemAb/MemAb.o: ../HwAb/MemAb/MemAb.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\include" -I".."  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\include" -I".." -I"../Common" -I"../HwAb" -I"../Mcal" -I"../UnitTests" -I"../UnitTests/UT" -I"../HwAb/ComAb" -I"../HwAb/IoHwAb" -I"../HwAb/MemAb" -I"../Mcal/Adc" -I"../Mcal/Dio" -I"../Mcal/Eeprom" -I"../Mcal/Fls" -I"../Mcal/Uart" -I"../Mcal/Wdg" -I"../SWC/AppLoader" -I"../SWC/HealthMgr" -I"../UnitTests/HwAb_ut/ComAb_ut" -I"../UnitTests/HwAb_ut/IoHwAb_ut" -I"../UnitTests/HwAb_ut/MemAb_ut" -I"../UnitTests/Mcal_ut/Adc_ut" -I"../UnitTests/Mcal_ut/Dio_ut" -I"../UnitTests/Mcal_ut/Eeprom_ut" -I"../UnitTests/Mcal_ut/Fls_ut" -I"../UnitTests/Mcal_ut/Uart_ut" -I"../UnitTests/Mcal_ut/Wdg_ut" -I"../UnitTests/SWC_ut/AppLoader_ut" -I"../UnitTests/SWC_ut/HealthMgr_ut"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 ./main.o: .././main.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\include" -I".."  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\include" -I".." -I"../Common" -I"../HwAb" -I"../Mcal" -I"../UnitTests" -I"../UnitTests/UT" -I"../HwAb/ComAb" -I"../HwAb/IoHwAb" -I"../HwAb/MemAb" -I"../Mcal/Adc" -I"../Mcal/Dio" -I"../Mcal/Eeprom" -I"../Mcal/Fls" -I"../Mcal/Uart" -I"../Mcal/Wdg" -I"../SWC/AppLoader" -I"../SWC/HealthMgr" -I"../UnitTests/HwAb_ut/ComAb_ut" -I"../UnitTests/HwAb_ut/IoHwAb_ut" -I"../UnitTests/HwAb_ut/MemAb_ut" -I"../UnitTests/Mcal_ut/Adc_ut" -I"../UnitTests/Mcal_ut/Dio_ut" -I"../UnitTests/Mcal_ut/Eeprom_ut" -I"../UnitTests/Mcal_ut/Fls_ut" -I"../UnitTests/Mcal_ut/Uart_ut" -I"../UnitTests/Mcal_ut/Wdg_ut" -I"../UnitTests/SWC_ut/AppLoader_ut" -I"../UnitTests/SWC_ut/HealthMgr_ut"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 Mcal/Adc/Adc.o: ../Mcal/Adc/Adc.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\include" -I".."  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\include" -I".." -I"../Common" -I"../HwAb" -I"../Mcal" -I"../UnitTests" -I"../UnitTests/UT" -I"../HwAb/ComAb" -I"../HwAb/IoHwAb" -I"../HwAb/MemAb" -I"../Mcal/Adc" -I"../Mcal/Dio" -I"../Mcal/Eeprom" -I"../Mcal/Fls" -I"../Mcal/Uart" -I"../Mcal/Wdg" -I"../SWC/AppLoader" -I"../SWC/HealthMgr" -I"../UnitTests/HwAb_ut/ComAb_ut" -I"../UnitTests/HwAb_ut/IoHwAb_ut" -I"../UnitTests/HwAb_ut/MemAb_ut" -I"../UnitTests/Mcal_ut/Adc_ut" -I"../UnitTests/Mcal_ut/Dio_ut" -I"../UnitTests/Mcal_ut/Eeprom_ut" -I"../UnitTests/Mcal_ut/Fls_ut" -I"../UnitTests/Mcal_ut/Uart_ut" -I"../UnitTests/Mcal_ut/Wdg_ut" -I"../UnitTests/SWC_ut/AppLoader_ut" -I"../UnitTests/SWC_ut/HealthMgr_ut"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 Mcal/Dio/Dio.o: ../Mcal/Dio/Dio.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\include" -I".."  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\include" -I".." -I"../Common" -I"../HwAb" -I"../Mcal" -I"../UnitTests" -I"../UnitTests/UT" -I"../HwAb/ComAb" -I"../HwAb/IoHwAb" -I"../HwAb/MemAb" -I"../Mcal/Adc" -I"../Mcal/Dio" -I"../Mcal/Eeprom" -I"../Mcal/Fls" -I"../Mcal/Uart" -I"../Mcal/Wdg" -I"../SWC/AppLoader" -I"../SWC/HealthMgr" -I"../UnitTests/HwAb_ut/ComAb_ut" -I"../UnitTests/HwAb_ut/IoHwAb_ut" -I"../UnitTests/HwAb_ut/MemAb_ut" -I"../UnitTests/Mcal_ut/Adc_ut" -I"../UnitTests/Mcal_ut/Dio_ut" -I"../UnitTests/Mcal_ut/Eeprom_ut" -I"../UnitTests/Mcal_ut/Fls_ut" -I"../UnitTests/Mcal_ut/Uart_ut" -I"../UnitTests/Mcal_ut/Wdg_ut" -I"../UnitTests/SWC_ut/AppLoader_ut" -I"../UnitTests/SWC_ut/HealthMgr_ut"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 Mcal/Eeprom/Eeprom.o: ../Mcal/Eeprom/Eeprom.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\include" -I".."  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\include" -I".." -I"../Common" -I"../HwAb" -I"../Mcal" -I"../UnitTests" -I"../UnitTests/UT" -I"../HwAb/ComAb" -I"../HwAb/IoHwAb" -I"../HwAb/MemAb" -I"../Mcal/Adc" -I"../Mcal/Dio" -I"../Mcal/Eeprom" -I"../Mcal/Fls" -I"../Mcal/Uart" -I"../Mcal/Wdg" -I"../SWC/AppLoader" -I"../SWC/HealthMgr" -I"../UnitTests/HwAb_ut/ComAb_ut" -I"../UnitTests/HwAb_ut/IoHwAb_ut" -I"../UnitTests/HwAb_ut/MemAb_ut" -I"../UnitTests/Mcal_ut/Adc_ut" -I"../UnitTests/Mcal_ut/Dio_ut" -I"../UnitTests/Mcal_ut/Eeprom_ut" -I"../UnitTests/Mcal_ut/Fls_ut" -I"../UnitTests/Mcal_ut/Uart_ut" -I"../UnitTests/Mcal_ut/Wdg_ut" -I"../UnitTests/SWC_ut/AppLoader_ut" -I"../UnitTests/SWC_ut/HealthMgr_ut"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 Mcal/Fls/Fls.o: ../Mcal/Fls/Fls.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\include" -I".."  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\include" -I".." -I"../Common" -I"../HwAb" -I"../Mcal" -I"../UnitTests" -I"../UnitTests/UT" -I"../HwAb/ComAb" -I"../HwAb/IoHwAb" -I"../HwAb/MemAb" -I"../Mcal/Adc" -I"../Mcal/Dio" -I"../Mcal/Eeprom" -I"../Mcal/Fls" -I"../Mcal/Uart" -I"../Mcal/Wdg" -I"../SWC/AppLoader" -I"../SWC/HealthMgr" -I"../UnitTests/HwAb_ut/ComAb_ut" -I"../UnitTests/HwAb_ut/IoHwAb_ut" -I"../UnitTests/HwAb_ut/MemAb_ut" -I"../UnitTests/Mcal_ut/Adc_ut" -I"../UnitTests/Mcal_ut/Dio_ut" -I"../UnitTests/Mcal_ut/Eeprom_ut" -I"../UnitTests/Mcal_ut/Fls_ut" -I"../UnitTests/Mcal_ut/Uart_ut" -I"../UnitTests/Mcal_ut/Wdg_ut" -I"../UnitTests/SWC_ut/AppLoader_ut" -I"../UnitTests/SWC_ut/HealthMgr_ut"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 Mcal/Uart/Uart.o: ../Mcal/Uart/Uart.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\include" -I".."  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\include" -I".." -I"../Common" -I"../HwAb" -I"../Mcal" -I"../UnitTests" -I"../UnitTests/UT" -I"../HwAb/ComAb" -I"../HwAb/IoHwAb" -I"../HwAb/MemAb" -I"../Mcal/Adc" -I"../Mcal/Dio" -I"../Mcal/Eeprom" -I"../Mcal/Fls" -I"../Mcal/Uart" -I"../Mcal/Wdg" -I"../SWC/AppLoader" -I"../SWC/HealthMgr" -I"../UnitTests/HwAb_ut/ComAb_ut" -I"../UnitTests/HwAb_ut/IoHwAb_ut" -I"../UnitTests/HwAb_ut/MemAb_ut" -I"../UnitTests/Mcal_ut/Adc_ut" -I"../UnitTests/Mcal_ut/Dio_ut" -I"../UnitTests/Mcal_ut/Eeprom_ut" -I"../UnitTests/Mcal_ut/Fls_ut" -I"../UnitTests/Mcal_ut/Uart_ut" -I"../UnitTests/Mcal_ut/Wdg_ut" -I"../UnitTests/SWC_ut/AppLoader_ut" -I"../UnitTests/SWC_ut/HealthMgr_ut"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 Mcal/Wdg/Wdg.o: ../Mcal/Wdg/Wdg.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\include" -I".."  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\include" -I".." -I"../Common" -I"../HwAb" -I"../Mcal" -I"../UnitTests" -I"../UnitTests/UT" -I"../HwAb/ComAb" -I"../HwAb/IoHwAb" -I"../HwAb/MemAb" -I"../Mcal/Adc" -I"../Mcal/Dio" -I"../Mcal/Eeprom" -I"../Mcal/Fls" -I"../Mcal/Uart" -I"../Mcal/Wdg" -I"../SWC/AppLoader" -I"../SWC/HealthMgr" -I"../UnitTests/HwAb_ut/ComAb_ut" -I"../UnitTests/HwAb_ut/IoHwAb_ut" -I"../UnitTests/HwAb_ut/MemAb_ut" -I"../UnitTests/Mcal_ut/Adc_ut" -I"../UnitTests/Mcal_ut/Dio_ut" -I"../UnitTests/Mcal_ut/Eeprom_ut" -I"../UnitTests/Mcal_ut/Fls_ut" -I"../UnitTests/Mcal_ut/Uart_ut" -I"../UnitTests/Mcal_ut/Wdg_ut" -I"../UnitTests/SWC_ut/AppLoader_ut" -I"../UnitTests/SWC_ut/HealthMgr_ut"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 SWC/AppLoader/AppLoader.o: ../SWC/AppLoader/AppLoader.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\include" -I".."  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\include" -I".." -I"../Common" -I"../HwAb" -I"../Mcal" -I"../UnitTests" -I"../UnitTests/UT" -I"../HwAb/ComAb" -I"../HwAb/IoHwAb" -I"../HwAb/MemAb" -I"../Mcal/Adc" -I"../Mcal/Dio" -I"../Mcal/Eeprom" -I"../Mcal/Fls" -I"../Mcal/Uart" -I"../Mcal/Wdg" -I"../SWC/AppLoader" -I"../SWC/HealthMgr" -I"../UnitTests/HwAb_ut/ComAb_ut" -I"../UnitTests/HwAb_ut/IoHwAb_ut" -I"../UnitTests/HwAb_ut/MemAb_ut" -I"../UnitTests/Mcal_ut/Adc_ut" -I"../UnitTests/Mcal_ut/Dio_ut" -I"../UnitTests/Mcal_ut/Eeprom_ut" -I"../UnitTests/Mcal_ut/Fls_ut" -I"../UnitTests/Mcal_ut/Uart_ut" -I"../UnitTests/Mcal_ut/Wdg_ut" -I"../UnitTests/SWC_ut/AppLoader_ut" -I"../UnitTests/SWC_ut/HealthMgr_ut"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 SWC/HealthMgr/HealthMgr.o: ../SWC/HealthMgr/HealthMgr.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\include" -I".."  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\include" -I".." -I"../Common" -I"../HwAb" -I"../Mcal" -I"../UnitTests" -I"../UnitTests/UT" -I"../HwAb/ComAb" -I"../HwAb/IoHwAb" -I"../HwAb/MemAb" -I"../Mcal/Adc" -I"../Mcal/Dio" -I"../Mcal/Eeprom" -I"../Mcal/Fls" -I"../Mcal/Uart" -I"../Mcal/Wdg" -I"../SWC/AppLoader" -I"../SWC/HealthMgr" -I"../UnitTests/HwAb_ut/ComAb_ut" -I"../UnitTests/HwAb_ut/IoHwAb_ut" -I"../UnitTests/HwAb_ut/MemAb_ut" -I"../UnitTests/Mcal_ut/Adc_ut" -I"../UnitTests/Mcal_ut/Dio_ut" -I"../UnitTests/Mcal_ut/Eeprom_ut" -I"../UnitTests/Mcal_ut/Fls_ut" -I"../UnitTests/Mcal_ut/Uart_ut" -I"../UnitTests/Mcal_ut/Wdg_ut" -I"../UnitTests/SWC_ut/AppLoader_ut" -I"../UnitTests/SWC_ut/HealthMgr_ut"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 UnitTests/HwAb_ut/ComAb_ut/ComAb_ut.o: ../UnitTests/HwAb_ut/ComAb_ut/ComAb_ut.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\include" -I".."  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\include" -I".." -I"../Common" -I"../HwAb" -I"../Mcal" -I"../UnitTests" -I"../UnitTests/UT" -I"../HwAb/ComAb" -I"../HwAb/IoHwAb" -I"../HwAb/MemAb" -I"../Mcal/Adc" -I"../Mcal/Dio" -I"../Mcal/Eeprom" -I"../Mcal/Fls" -I"../Mcal/Uart" -I"../Mcal/Wdg" -I"../SWC/AppLoader" -I"../SWC/HealthMgr" -I"../UnitTests/HwAb_ut/ComAb_ut" -I"../UnitTests/HwAb_ut/IoHwAb_ut" -I"../UnitTests/HwAb_ut/MemAb_ut" -I"../UnitTests/Mcal_ut/Adc_ut" -I"../UnitTests/Mcal_ut/Dio_ut" -I"../UnitTests/Mcal_ut/Eeprom_ut" -I"../UnitTests/Mcal_ut/Fls_ut" -I"../UnitTests/Mcal_ut/Uart_ut" -I"../UnitTests/Mcal_ut/Wdg_ut" -I"../UnitTests/SWC_ut/AppLoader_ut" -I"../UnitTests/SWC_ut/HealthMgr_ut"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 UnitTests/HwAb_ut/IoHwAb_ut/IoHwAb_ut.o: ../UnitTests/HwAb_ut/IoHwAb_ut/IoHwAb_ut.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\include" -I".."  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\include" -I".." -I"../Common" -I"../HwAb" -I"../Mcal" -I"../UnitTests" -I"../UnitTests/UT" -I"../HwAb/ComAb" -I"../HwAb/IoHwAb" -I"../HwAb/MemAb" -I"../Mcal/Adc" -I"../Mcal/Dio" -I"../Mcal/Eeprom" -I"../Mcal/Fls" -I"../Mcal/Uart" -I"../Mcal/Wdg" -I"../SWC/AppLoader" -I"../SWC/HealthMgr" -I"../UnitTests/HwAb_ut/ComAb_ut" -I"../UnitTests/HwAb_ut/IoHwAb_ut" -I"../UnitTests/HwAb_ut/MemAb_ut" -I"../UnitTests/Mcal_ut/Adc_ut" -I"../UnitTests/Mcal_ut/Dio_ut" -I"../UnitTests/Mcal_ut/Eeprom_ut" -I"../UnitTests/Mcal_ut/Fls_ut" -I"../UnitTests/Mcal_ut/Uart_ut" -I"../UnitTests/Mcal_ut/Wdg_ut" -I"../UnitTests/SWC_ut/AppLoader_ut" -I"../UnitTests/SWC_ut/HealthMgr_ut"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 UnitTests/HwAb_ut/MemAb_ut/MemAb_ut.o: ../UnitTests/HwAb_ut/MemAb_ut/MemAb_ut.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\include" -I".."  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\include" -I".." -I"../Common" -I"../HwAb" -I"../Mcal" -I"../UnitTests" -I"../UnitTests/UT" -I"../HwAb/ComAb" -I"../HwAb/IoHwAb" -I"../HwAb/MemAb" -I"../Mcal/Adc" -I"../Mcal/Dio" -I"../Mcal/Eeprom" -I"../Mcal/Fls" -I"../Mcal/Uart" -I"../Mcal/Wdg" -I"../SWC/AppLoader" -I"../SWC/HealthMgr" -I"../UnitTests/HwAb_ut/ComAb_ut" -I"../UnitTests/HwAb_ut/IoHwAb_ut" -I"../UnitTests/HwAb_ut/MemAb_ut" -I"../UnitTests/Mcal_ut/Adc_ut" -I"../UnitTests/Mcal_ut/Dio_ut" -I"../UnitTests/Mcal_ut/Eeprom_ut" -I"../UnitTests/Mcal_ut/Fls_ut" -I"../UnitTests/Mcal_ut/Uart_ut" -I"../UnitTests/Mcal_ut/Wdg_ut" -I"../UnitTests/SWC_ut/AppLoader_ut" -I"../UnitTests/SWC_ut/HealthMgr_ut"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 UnitTests/Mcal_ut/Adc_ut/Adc_ut.o: ../UnitTests/Mcal_ut/Adc_ut/Adc_ut.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\include" -I".."  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\include" -I".." -I"../Common" -I"../HwAb" -I"../Mcal" -I"../UnitTests" -I"../UnitTests/UT" -I"../HwAb/ComAb" -I"../HwAb/IoHwAb" -I"../HwAb/MemAb" -I"../Mcal/Adc" -I"../Mcal/Dio" -I"../Mcal/Eeprom" -I"../Mcal/Fls" -I"../Mcal/Uart" -I"../Mcal/Wdg" -I"../SWC/AppLoader" -I"../SWC/HealthMgr" -I"../UnitTests/HwAb_ut/ComAb_ut" -I"../UnitTests/HwAb_ut/IoHwAb_ut" -I"../UnitTests/HwAb_ut/MemAb_ut" -I"../UnitTests/Mcal_ut/Adc_ut" -I"../UnitTests/Mcal_ut/Dio_ut" -I"../UnitTests/Mcal_ut/Eeprom_ut" -I"../UnitTests/Mcal_ut/Fls_ut" -I"../UnitTests/Mcal_ut/Uart_ut" -I"../UnitTests/Mcal_ut/Wdg_ut" -I"../UnitTests/SWC_ut/AppLoader_ut" -I"../UnitTests/SWC_ut/HealthMgr_ut"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 UnitTests/Mcal_ut/Dio_ut/Dio_ut.o: ../UnitTests/Mcal_ut/Dio_ut/Dio_ut.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\include" -I".."  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\include" -I".." -I"../Common" -I"../HwAb" -I"../Mcal" -I"../UnitTests" -I"../UnitTests/UT" -I"../HwAb/ComAb" -I"../HwAb/IoHwAb" -I"../HwAb/MemAb" -I"../Mcal/Adc" -I"../Mcal/Dio" -I"../Mcal/Eeprom" -I"../Mcal/Fls" -I"../Mcal/Uart" -I"../Mcal/Wdg" -I"../SWC/AppLoader" -I"../SWC/HealthMgr" -I"../UnitTests/HwAb_ut/ComAb_ut" -I"../UnitTests/HwAb_ut/IoHwAb_ut" -I"../UnitTests/HwAb_ut/MemAb_ut" -I"../UnitTests/Mcal_ut/Adc_ut" -I"../UnitTests/Mcal_ut/Dio_ut" -I"../UnitTests/Mcal_ut/Eeprom_ut" -I"../UnitTests/Mcal_ut/Fls_ut" -I"../UnitTests/Mcal_ut/Uart_ut" -I"../UnitTests/Mcal_ut/Wdg_ut" -I"../UnitTests/SWC_ut/AppLoader_ut" -I"../UnitTests/SWC_ut/HealthMgr_ut"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 UnitTests/Mcal_ut/Eeprom_ut/Eeprom_ut.o: ../UnitTests/Mcal_ut/Eeprom_ut/Eeprom_ut.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\include" -I".."  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\include" -I".." -I"../Common" -I"../HwAb" -I"../Mcal" -I"../UnitTests" -I"../UnitTests/UT" -I"../HwAb/ComAb" -I"../HwAb/IoHwAb" -I"../HwAb/MemAb" -I"../Mcal/Adc" -I"../Mcal/Dio" -I"../Mcal/Eeprom" -I"../Mcal/Fls" -I"../Mcal/Uart" -I"../Mcal/Wdg" -I"../SWC/AppLoader" -I"../SWC/HealthMgr" -I"../UnitTests/HwAb_ut/ComAb_ut" -I"../UnitTests/HwAb_ut/IoHwAb_ut" -I"../UnitTests/HwAb_ut/MemAb_ut" -I"../UnitTests/Mcal_ut/Adc_ut" -I"../UnitTests/Mcal_ut/Dio_ut" -I"../UnitTests/Mcal_ut/Eeprom_ut" -I"../UnitTests/Mcal_ut/Fls_ut" -I"../UnitTests/Mcal_ut/Uart_ut" -I"../UnitTests/Mcal_ut/Wdg_ut" -I"../UnitTests/SWC_ut/AppLoader_ut" -I"../UnitTests/SWC_ut/HealthMgr_ut"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 UnitTests/Mcal_ut/Fls_ut/Fls_ut.o: ../UnitTests/Mcal_ut/Fls_ut/Fls_ut.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\include" -I".."  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\include" -I".." -I"../Common" -I"../HwAb" -I"../Mcal" -I"../UnitTests" -I"../UnitTests/UT" -I"../HwAb/ComAb" -I"../HwAb/IoHwAb" -I"../HwAb/MemAb" -I"../Mcal/Adc" -I"../Mcal/Dio" -I"../Mcal/Eeprom" -I"../Mcal/Fls" -I"../Mcal/Uart" -I"../Mcal/Wdg" -I"../SWC/AppLoader" -I"../SWC/HealthMgr" -I"../UnitTests/HwAb_ut/ComAb_ut" -I"../UnitTests/HwAb_ut/IoHwAb_ut" -I"../UnitTests/HwAb_ut/MemAb_ut" -I"../UnitTests/Mcal_ut/Adc_ut" -I"../UnitTests/Mcal_ut/Dio_ut" -I"../UnitTests/Mcal_ut/Eeprom_ut" -I"../UnitTests/Mcal_ut/Fls_ut" -I"../UnitTests/Mcal_ut/Uart_ut" -I"../UnitTests/Mcal_ut/Wdg_ut" -I"../UnitTests/SWC_ut/AppLoader_ut" -I"../UnitTests/SWC_ut/HealthMgr_ut"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 UnitTests/Mcal_ut/Uart_ut/Uart_ut.o: ../UnitTests/Mcal_ut/Uart_ut/Uart_ut.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\include" -I".."  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\include" -I".." -I"../Common" -I"../HwAb" -I"../Mcal" -I"../UnitTests" -I"../UnitTests/UT" -I"../HwAb/ComAb" -I"../HwAb/IoHwAb" -I"../HwAb/MemAb" -I"../Mcal/Adc" -I"../Mcal/Dio" -I"../Mcal/Eeprom" -I"../Mcal/Fls" -I"../Mcal/Uart" -I"../Mcal/Wdg" -I"../SWC/AppLoader" -I"../SWC/HealthMgr" -I"../UnitTests/HwAb_ut/ComAb_ut" -I"../UnitTests/HwAb_ut/IoHwAb_ut" -I"../UnitTests/HwAb_ut/MemAb_ut" -I"../UnitTests/Mcal_ut/Adc_ut" -I"../UnitTests/Mcal_ut/Dio_ut" -I"../UnitTests/Mcal_ut/Eeprom_ut" -I"../UnitTests/Mcal_ut/Fls_ut" -I"../UnitTests/Mcal_ut/Uart_ut" -I"../UnitTests/Mcal_ut/Wdg_ut" -I"../UnitTests/SWC_ut/AppLoader_ut" -I"../UnitTests/SWC_ut/HealthMgr_ut"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 UnitTests/Mcal_ut/Wdg_ut/Wdg_ut.o: ../UnitTests/Mcal_ut/Wdg_ut/Wdg_ut.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\include" -I".."  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\include" -I".." -I"../Common" -I"../HwAb" -I"../Mcal" -I"../UnitTests" -I"../UnitTests/UT" -I"../HwAb/ComAb" -I"../HwAb/IoHwAb" -I"../HwAb/MemAb" -I"../Mcal/Adc" -I"../Mcal/Dio" -I"../Mcal/Eeprom" -I"../Mcal/Fls" -I"../Mcal/Uart" -I"../Mcal/Wdg" -I"../SWC/AppLoader" -I"../SWC/HealthMgr" -I"../UnitTests/HwAb_ut/ComAb_ut" -I"../UnitTests/HwAb_ut/IoHwAb_ut" -I"../UnitTests/HwAb_ut/MemAb_ut" -I"../UnitTests/Mcal_ut/Adc_ut" -I"../UnitTests/Mcal_ut/Dio_ut" -I"../UnitTests/Mcal_ut/Eeprom_ut" -I"../UnitTests/Mcal_ut/Fls_ut" -I"../UnitTests/Mcal_ut/Uart_ut" -I"../UnitTests/Mcal_ut/Wdg_ut" -I"../UnitTests/SWC_ut/AppLoader_ut" -I"../UnitTests/SWC_ut/HealthMgr_ut"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 UnitTests/SWC_ut/AppLoader_ut/AppLoader_ut.o: ../UnitTests/SWC_ut/AppLoader_ut/AppLoader_ut.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\include" -I".."  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\include" -I".." -I"../Common" -I"../HwAb" -I"../Mcal" -I"../UnitTests" -I"../UnitTests/UT" -I"../HwAb/ComAb" -I"../HwAb/IoHwAb" -I"../HwAb/MemAb" -I"../Mcal/Adc" -I"../Mcal/Dio" -I"../Mcal/Eeprom" -I"../Mcal/Fls" -I"../Mcal/Uart" -I"../Mcal/Wdg" -I"../SWC/AppLoader" -I"../SWC/HealthMgr" -I"../UnitTests/HwAb_ut/ComAb_ut" -I"../UnitTests/HwAb_ut/IoHwAb_ut" -I"../UnitTests/HwAb_ut/MemAb_ut" -I"../UnitTests/Mcal_ut/Adc_ut" -I"../UnitTests/Mcal_ut/Dio_ut" -I"../UnitTests/Mcal_ut/Eeprom_ut" -I"../UnitTests/Mcal_ut/Fls_ut" -I"../UnitTests/Mcal_ut/Uart_ut" -I"../UnitTests/Mcal_ut/Wdg_ut" -I"../UnitTests/SWC_ut/AppLoader_ut" -I"../UnitTests/SWC_ut/HealthMgr_ut"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
 UnitTests/SWC_ut/HealthMgr_ut/HealthMgr_ut.o: ../UnitTests/SWC_ut/HealthMgr_ut/HealthMgr_ut.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\include" -I".."  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\include" -I".." -I"../Common" -I"../HwAb" -I"../Mcal" -I"../UnitTests" -I"../UnitTests/UT" -I"../HwAb/ComAb" -I"../HwAb/IoHwAb" -I"../HwAb/MemAb" -I"../Mcal/Adc" -I"../Mcal/Dio" -I"../Mcal/Eeprom" -I"../Mcal/Fls" -I"../Mcal/Uart" -I"../Mcal/Wdg" -I"../SWC/AppLoader" -I"../SWC/HealthMgr" -I"../UnitTests/HwAb_ut/ComAb_ut" -I"../UnitTests/HwAb_ut/IoHwAb_ut" -I"../UnitTests/HwAb_ut/MemAb_ut" -I"../UnitTests/Mcal_ut/Adc_ut" -I"../UnitTests/Mcal_ut/Dio_ut" -I"../UnitTests/Mcal_ut/Eeprom_ut" -I"../UnitTests/Mcal_ut/Fls_ut" -I"../UnitTests/Mcal_ut/Uart_ut" -I"../UnitTests/Mcal_ut/Wdg_ut" -I"../UnitTests/SWC_ut/AppLoader_ut" -I"../UnitTests/SWC_ut/HealthMgr_ut"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+UnitTests/UT/UnitTest.o: ../UnitTests/UT/UnitTest.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\include" -I".." -I"../Common" -I"../HwAb" -I"../Mcal" -I"../UnitTests" -I"../UnitTests/UT" -I"../HwAb/ComAb" -I"../HwAb/IoHwAb" -I"../HwAb/MemAb" -I"../Mcal/Adc" -I"../Mcal/Dio" -I"../Mcal/Eeprom" -I"../Mcal/Fls" -I"../Mcal/Uart" -I"../Mcal/Wdg" -I"../SWC/AppLoader" -I"../SWC/HealthMgr" -I"../UnitTests/HwAb_ut/ComAb_ut" -I"../UnitTests/HwAb_ut/IoHwAb_ut" -I"../UnitTests/HwAb_ut/MemAb_ut" -I"../UnitTests/Mcal_ut/Adc_ut" -I"../UnitTests/Mcal_ut/Dio_ut" -I"../UnitTests/Mcal_ut/Eeprom_ut" -I"../UnitTests/Mcal_ut/Fls_ut" -I"../UnitTests/Mcal_ut/Uart_ut" -I"../UnitTests/Mcal_ut/Wdg_ut" -I"../UnitTests/SWC_ut/AppLoader_ut" -I"../UnitTests/SWC_ut/HealthMgr_ut"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega32 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\gcc\dev\atmega32" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
 	@echo Finished building: $<
 	
 
