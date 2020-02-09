@@ -7,181 +7,310 @@
 
 #include "Dio.h"
 
-void Dio_WritePin(uint8 portNumber, uint8 pinNumber, uint8 value)
+void Dio_WritePin(uint8 Param_PortNumber, uint8 Param_PinNumber, uint8 Param_value)
 {
-	uint8* PORT_Ptr;
-	uint8 pin = pinNumber % 8;
-	
-	switch (portNumber)
+	boolean Loc_Pass = TRUE;
+	if (Param_PortNumber >3 || Param_PortNumber <0)
 	{
-		case 0:
-			PORT_Ptr = PORTA;		
-			break;
-		case 1:
-			PORT_Ptr = PORTB;
-			break;
-		case 2:
-			PORT_Ptr = PORTC;
-			break;		
-		case 3:
-			PORT_Ptr = PORTD;
-			break;		
-		default:
-			break;
-	}
-	
-	if(HIGH == value)
-	{
-		SET_BIT(PORT_Ptr,pin);
+		//error 
+		Loc_Pass = FALSE;
 	}
 	else
 	{
-		CLEAR_BIT(PORT_Ptr,pin);
+		//Nothing
 	}
-}
-
-uint8 Dio_ReadPin(uint8 portNumber, uint8 pinNumber)
-{
-	uint8 * PIN_Ptr;
-	uint8 pin = pinNumber % 8;
-	uint8 returnValue = LOW;
-	
-	switch (portNumber)
-	{
-		case 0:
-		PIN_Ptr = PINA;
-		break;
-		case 1:
-		PIN_Ptr = PINB;
-		break;
-		case 2:
-		PIN_Ptr = PINC;
-		break;
-		case 3:
-		PIN_Ptr = PIND;
-		break;
-		default:
-		break;
-	}
-	
-	if (GET_BIT(PIN_Ptr,pin))
-	{
-		returnValue = HIGH;
+	if (Param_PinNumber >7 || Param_PinNumber <0)
+	{		
+		//error
+		Loc_Pass = FALSE;
 	}
 	else
 	{
-		returnValue = LOW;
+		//Nothing
 	}
+	if(Loc_Pass)
+	{
+		uint8* Loc_PortPtr;
+		uint8 Loc_Pin = Param_PinNumber % 8;
 	
-	return returnValue;
+		switch (Param_PortNumber)
+		{
+			case 0:
+				Loc_PortPtr = PORTA;		
+				break;
+			case 1:
+				Loc_PortPtr = PORTB;
+				break;
+			case 2:
+				Loc_PortPtr = PORTC;
+				break;		
+			case 3:
+				Loc_PortPtr = PORTD;
+				break;		
+			default:
+				break;
+		}
+	
+		if(HIGH == Param_value)
+		{
+			SET_BIT(Loc_PortPtr,Loc_Pin);
+		}
+		else
+		{
+			CLEAR_BIT(Loc_PortPtr,Loc_Pin);
+		}
+	}
+	else
+	{
+		//error invalid param
+	}
 }
 
-void Dio_WritePort(uint8 portNumber, uint8 value)
+uint8 Dio_ReadPin(uint8 Param_PortNumber, uint8 Param_PinNumber)
 {
-	uint8* PORT_Ptr;
+	boolean Loc_Pass = TRUE;
+	if (Param_PortNumber >3 || Param_PortNumber <0)
+	{
+		//error
+		Loc_Pass = FALSE;
+	}
+	else
+	{
+		//Nothing
+	}
+	if (Param_PinNumber >7 || Param_PinNumber <0)
+	{
+		//error
+		Loc_Pass = FALSE;
+	}
+	else
+	{
+		//Nothing
+	}
+	if(Loc_Pass)
+	{
+		uint8 * Loc_PinPtr;
+		uint8 Loc_Pin = Param_PinNumber % 8;
+		uint8 Loc_ReturnValue = LOW;
+	
+		switch (Param_PortNumber)
+		{
+			case 0:
+			Loc_PinPtr = PINA;
+			break;
+			case 1:
+			Loc_PinPtr = PINB;
+			break;
+			case 2:
+			Loc_PinPtr = PINC;
+			break;
+			case 3:
+			Loc_PinPtr = PIND;
+			break;
+			default:
+			break;
+		}
+	
+		if (GET_BIT(Loc_PinPtr,Loc_Pin))
+		{
+			Loc_ReturnValue = HIGH;
+		}
+		else
+		{
+			Loc_ReturnValue = LOW;
+		}
+	
+		return Loc_ReturnValue;
+	}
+	else
+	{
+		//error invalid param
+	}
+}
+
+void Dio_WritePort(uint8 Param_PortNumber, uint8 Param_value)
+{
+	boolean Loc_Pass = TRUE;
+	if (Param_PortNumber >3 || Param_PortNumber <0)
+	{
+		//error
+		Loc_Pass = FALSE;
+	}
+	else
+	{
+		//Nothing
+	}
+	if(Loc_Pass)
+	{
+		uint8* Loc_PortPtr;
 		
-	switch (portNumber)
-	{
-		case 0:
-		PORT_Ptr = PORTA;
-		break;
-		case 1:
-		PORT_Ptr = PORTB;
-		break;
-		case 2:
-		PORT_Ptr = PORTC;
-		break;
-		case 3:
-		PORT_Ptr = PORTD;
-		break;
-		default:
-		break;
-	}
+		switch (Param_PortNumber)
+		{
+			case 0:
+			Loc_PortPtr = PORTA;
+			break;
+			case 1:
+			Loc_PortPtr = PORTB;
+			break;
+			case 2:
+			Loc_PortPtr = PORTC;
+			break;
+			case 3:
+			Loc_PortPtr = PORTD;
+			break;
+			default:
+			break;
+		}
 	
-	PORT_Ptr = value;
-}
-
-uint8 Dio_ReadPort(uint8 portNumber)
-{
-	uint8 * PIN_Ptr;
-	uint8 returnValue = LOW;
-	
-	switch (portNumber)
-	{
-		case 0:
-		PIN_Ptr = PINA;
-		break;
-		case 1:
-		PIN_Ptr = PINB;
-		break;
-		case 2:
-		PIN_Ptr = PINC;
-		break;
-		case 3:
-		PIN_Ptr = PIND;
-		break;
-		default:
-		break;
-	}
-	
-	returnValue = PIN_Ptr;	
-	return returnValue;
-}
-
-void Dio_SetPinDirection(uint8 portNumber, uint8 pinNumber, uint8 mode)
-{
-	uint8* DDR_Ptr;
-	uint8 pin = pinNumber % 8;
-	
-	switch (portNumber)
-	{
-		case 0:
-		DDR_Ptr = DDRA;
-		break;
-		case 1:
-		DDR_Ptr = DDRB;
-		break;
-		case 2:
-		DDR_Ptr = DDRC;
-		break;
-		case 3:
-		DDR_Ptr = DDRD;
-		break;
-		default:
-		break;
-	}
-	
-	if(HIGH == mode)
-	{
-		SET_BIT(PORT_Ptr,pin);
+		Loc_PortPtr = value;
 	}
 	else
 	{
-		CLEAR_BIT(PORT_Ptr,pin);
+		//error
 	}
 }
 
-void Dio_SetPortDirection(uint8 portNumber, uint8 mode)
+uint8 Dio_ReadPort(uint8 Param_PortNumber)
 {
-	uint8* DDR_Ptr;
-	
-	switch (portNumber)
+	boolean Loc_Pass = TRUE;
+	if (Param_PortNumber >3 || Param_PortNumber <0)
 	{
-		case 0:
-		DDR_Ptr = DDRA;
-		break;
-		case 1:
-		DDR_Ptr = DDRB;
-		break;
-		case 2:
-		DDR_Ptr = DDRC;
-		break;
-		case 3:
-		DDR_Ptr = DDRD;
-		break;
-		default:
-		break;
+		//error
+		Loc_Pass = FALSE;
 	}
+	else
+	{
+		//Nothing
+	}
+	if(Loc_Pass)
+	{
+		uint8 * Loc_PinPtr;
+		uint8 Loc_ReturnValue = LOW;
 	
-	DDR_Ptr = mode;
+		switch (Param_PortNumber)
+		{
+			case 0:
+			Loc_PinPtr = PINA;
+			break;
+			case 1:
+			Loc_PinPtr = PINB;
+			break;
+			case 2:
+			Loc_PinPtr = PINC;
+			break;
+			case 3:
+			Loc_PinPtr = PIND;
+			break;
+			default:
+			break;
+		}
+	
+		Loc_ReturnValue = Loc_PinPtr;	
+		return Loc_ReturnValue;
+	}
+	else
+	{
+		//error
+	}
+}
+
+void Dio_SetPinDirection(uint8 Param_PortNumber, uint8 Param_PinNumber, uint8 mode)
+{
+	boolean Loc_Pass = TRUE;
+	if (Param_PortNumber >3 || Param_PortNumber <0)
+	{
+		//error
+		Loc_Pass = FALSE;
+	}
+	else
+	{
+		//Nothing
+	}
+	if (Param_PinNumber >7 || Param_PinNumber <0)
+	{
+		//error
+		Loc_Pass = FALSE;
+	}
+	else
+	{
+		//Nothing
+	}
+	if(Loc_Pass)
+	{
+		uint8* Loc_DdrPtr;
+		uint8 Loc_Pin = Param_PinNumber % 8;
+	
+		switch (Param_PortNumber)
+		{
+			case 0:
+			Loc_DdrPtr = DDRA;
+			break;
+			case 1:
+			Loc_DdrPtr = DDRB;
+			break;
+			case 2:
+			Loc_DdrPtr = DDRC;
+			break;
+			case 3:
+			Loc_DdrPtr = DDRD;
+			break;
+			default:
+			break;
+		}
+	
+		if(HIGH == mode)
+		{
+			SET_BIT(Loc_DdrPtr,Loc_Pin);
+		}
+		else
+		{
+			CLEAR_BIT(Loc_DdrPtr,Loc_Pin);
+		}
+	}
+	else
+	{
+		//error
+	}
+}
+
+void Dio_SetPortDirection(uint8 Param_PortNumber, uint8 mode)
+{
+	boolean Loc_Pass = TRUE;
+	if (Param_PortNumber >3 || Param_PortNumber <0)
+	{
+		//error
+		Loc_Pass = FALSE;
+	}
+	else
+	{
+		//Nothing
+	}
+	if(Loc_Pass)
+	{
+		uint8* Loc_DdrPtr;
+	
+		switch (Param_PortNumber)
+		{
+			case 0:
+			Loc_DdrPtr = DDRA;
+			break;
+			case 1:
+			Loc_DdrPtr = DDRB;
+			break;
+			case 2:
+			Loc_DdrPtr = DDRC;
+			break;
+			case 3:
+			Loc_DdrPtr = DDRD;
+			break;
+			default:
+			break;
+		}
+	
+		Loc_DdrPtr = mode;
+	}
+	else
+	{
+		//error
+	}
 }
