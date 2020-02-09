@@ -9,3 +9,8 @@ Bootloader/.vs/Bootloader/v14/.atsuo
 *.mk
 *.o
 *.d
+*.eep
+*.elf
+*.hex
+*.lss
+Bootloader/Bootloader/Debug/Makefile
