@@ -14,35 +14,22 @@
 /**************************************************************************************************
 *                                     FUNCTIONS IMPLEMENTATION                                    *
 **************************************************************************************************/
-void Dio_WritePin(uint8 Param_PortNumber, uint8 Param_PinNumber, uint8 Param_value)
+
+
+/*
+*
+*
+*
+*/
+boolean Dio_WritePin(uint8 Param_PortNumber, uint8 Param_PinNumber, uint8 Param_value)
 {
-	/* Variable to determine if there is any error in function parameters */
-	boolean Loc_Pass = TRUE;
+	
+	uint8 Loc_Pin = Param_PinNumber % 8;
+			
 	/* Check if Port Number is right. (0-3) */
-	if (Param_PortNumber >3 || Param_PortNumber <0)
-	{
-		//error 
-		Loc_Pass = FALSE;
-	}
-	else
-	{
-		//Nothing
-	}
-	
-	uint8 Loc_Pin = Param_PinNumber % 8;		
 	/* Check if Pin Number is right. (0-7) */
-	if (Loc_Pin >7 || Loc_Pin <0)
-	{		
-		//error
-		Loc_Pass = FALSE;
-	}
-	else
-	{
-		//Nothing
-	}
-	
 	/* If passed the checks continue with code */
-	if(Loc_Pass)
+	if(Param_PortNumber >3 && Param_PortNumber =>0 && Loc_Pin =<7 && Loc_Pin >=0)
 	{
 		uint8* Loc_PortPtr;		
 		/* Get the suitable PORT according to port number */
@@ -74,46 +61,27 @@ void Dio_WritePin(uint8 Param_PortNumber, uint8 Param_PinNumber, uint8 Param_val
 			/* Clear pin (LOW) */
 			CLEAR_BIT(Loc_PortPtr,Loc_Pin);
 		}
+		
+		return true;
 	}
 	else
 	{
-		//error invalid param
+		/* Parameter Error */
+		return false;
 	}
 }
 
-uint8 Dio_ReadPin(uint8 Param_PortNumber, uint8 Param_PinNumber)
+boolean Dio_ReadPin(uint8 Param_PortNumber, uint8 Param_PinNumber, uint8* Param_ReturnValue)
 {
-	/* Variable to determine if there is any error in function parameters */
-	boolean Loc_Pass = TRUE;
-	/* Check if Port Number is right. (0-3) */
-	if (Param_PortNumber >3 || Param_PortNumber <0)
-	{
-		//error
-		Loc_Pass = FALSE;
-	}
-	else
-	{
-		//Nothing
-	}
-		
-	uint8 Loc_Pin = Param_PinNumber % 8;		
+	uint8 Loc_Pin = Param_PinNumber % 8;
+	/* Check if Port Number is right. (0-3) */		
 	/* Check if Pin Number is right. (0-7) */
-	if (Loc_Pin >7 || Loc_Pin <0)
-	{
-		//error
-		Loc_Pass = FALSE;
-	}
-	else
-	{
-		//Nothing
-	}
-		
 	/* If passed the checks continue with code */
-	if(Loc_Pass)
+	if((Param_PortNumber =<3 && Param_PortNumber => 0 && Loc_Pin =<7 && Loc_Pin =>0)
 	{
 		uint8 * Loc_PinPtr;
 		uint8 Loc_ReturnValue = LOW;	
-		/* Get Suitable PIN regeistr according to Port number */
+		/* Get Suitable PIN register according to Port number */
 		switch (Param_PortNumber)
 		{
 			case 0:
@@ -134,37 +102,27 @@ uint8 Dio_ReadPin(uint8 Param_PortNumber, uint8 Param_PinNumber)
 		/* Get pin value and return it to the user*/	
 		if (GET_BIT(Loc_PinPtr,Loc_Pin))
 		{
-			Loc_ReturnValue = HIGH;
+			*Param_ReturnValue = HIGH;
 		}
 		else
 		{
-			Loc_ReturnValue = LOW;
+			*Param_ReturnValue = LOW;
 		}	
-		return Loc_ReturnValue;
+		return true;
 	}
 	else
 	{
 		//error invalid param
+		return false
 	}
 }
 
-void Dio_WritePort(uint8 Param_PortNumber, uint8 Param_value)
+boolean Dio_WritePort(uint8 Param_PortNumber, uint8 Param_value)
 {
-	/* Variable to determine if there is any error in function parameters */
-	boolean Loc_Pass = TRUE;
+
 	/* Check if Port Number is right. (0-3) */
-	if (Param_PortNumber >3 || Param_PortNumber <0)
-	{
-		//error
-		Loc_Pass = FALSE;
-	}
-	else
-	{
-		//Nothing
-	}
-		
 	/* If passed the checks continue with code */
-	if(Loc_Pass)
+	if(Param_PortNumber =<3  && Param_PortNumber =>0)
 	{
 		uint8* Loc_PortPtr;
 		/* Get suitable PORT register according to port number*/
@@ -187,33 +145,22 @@ void Dio_WritePort(uint8 Param_PortNumber, uint8 Param_value)
 		}
 		/* Set port with given value */
 		Loc_PortPtr = value;
+		return true;
 	}
 	else
 	{
-		//error
+		//error in parameter
+		return false
 	}
 }
 
-uint8 Dio_ReadPort(uint8 Param_PortNumber)
+boolean Dio_ReadPort(uint8 Param_PortNumber, uint8* Param_ReturnValue)
 {
-	/* Variable to determine if there is any error in function parameters */
-	boolean Loc_Pass = TRUE;
 	/* Check if Port Number is right. (0-3) */
-	if (Param_PortNumber >3 || Param_PortNumber <0)
-	{
-		//error
-		Loc_Pass = FALSE;
-	}
-	else
-	{
-		//Nothing
-	}
-			
 	/* If passed the checks continue with code */
-	if(Loc_Pass)
+	if(Param_PortNumber =<3 && Param_PortNumber =>0)
 	{
 		uint8 * Loc_PinPtr;
-		uint8 Loc_ReturnValue = LOW;
 		/* Determine suitable PIN register according to given port number*/
 		switch (Param_PortNumber)
 		{
@@ -234,44 +181,23 @@ uint8 Dio_ReadPort(uint8 Param_PortNumber)
 		}
 	
 		/* Return port value to user */
-		Loc_ReturnValue = Loc_PinPtr;	
-		return Loc_ReturnValue;
+		*Param_ReturnValue = Loc_PinPtr;	
+		return true;
 	}
 	else
 	{
 		//error
+		return false
 	}
 }
 
-void Dio_SetPinDirection(uint8 Param_PortNumber, uint8 Param_PinNumber, uint8 Param_Mode)
+boolean Dio_SetPinDirection(uint8 Param_PortNumber, uint8 Param_PinNumber, uint8 Param_Mode)
 {
-	/* Variable to determine if there is any error in function parameters */
-	boolean Loc_Pass = TRUE;
-	/* Check if Port Number is right. (0-3) */
-	if (Param_PortNumber >3 || Param_PortNumber <0)
-	{
-		//error
-		Loc_Pass = FALSE;
-	}
-	else
-	{
-		//Nothing
-	}
-
 	uint8 Loc_Pin = Param_PinNumber % 8;
+	/* Check if Port Number is right. (0-3) */
 	/* Check if Pin Number is right. (0-7) */
-	if (Loc_Pin >7 || Loc_Pin <0)
-	{
-		//error
-		Loc_Pass = FALSE;
-	}
-	else
-	{
-		//Nothing
-	}
-
 	/* If passed the checks continue with code */
-	if(Loc_Pass)
+	if(Param_PortNumber =<3 && Param_PortNumber =>0 && Loc_Pin =<7 && Loc_Pin =>0 )
 	{
 		uint8* Loc_DdrPtr;
   		/* Get suitable DDR register according to given port number */
@@ -302,30 +228,20 @@ void Dio_SetPinDirection(uint8 Param_PortNumber, uint8 Param_PinNumber, uint8 Pa
 		{
 			CLEAR_BIT(Loc_DdrPtr,Loc_Pin);
 		}
+		return true;
 	}
 	else
 	{
 		//error
+		return false;
 	}
 }
 
-void Dio_SetPortDirection(uint8 Param_PortNumber, uint8 Param_Mode)
+boolean Dio_SetPortDirection(uint8 Param_PortNumber, uint8 Param_Mode)
 {
-	/* Variable to determine if there is any error in function parameters */
-	boolean Loc_Pass = TRUE;
 	/* Check if Port Number is right. (0-3) */
-	if (Param_PortNumber >3 || Param_PortNumber <0)
-	{
-		//error
-		Loc_Pass = FALSE;
-	}
-	else
-	{
-		//Nothing
-	}
-
 	/* If passed the checks continue with code */
-	if(Loc_Pass)
+	if(Param_PortNumber =<3 && Param_PortNumber =>0)
 	{
 		uint8* Loc_DdrPtr;
 		/* Get suitable DDR register according to given port number */
@@ -349,9 +265,12 @@ void Dio_SetPortDirection(uint8 Param_PortNumber, uint8 Param_Mode)
 	
 		/* Set port with given value */
 		Loc_DdrPtr = Param_Mode;
+		
+		return true;
 	}
 	else
 	{
 		//error
+		return false;
 	}
 }
