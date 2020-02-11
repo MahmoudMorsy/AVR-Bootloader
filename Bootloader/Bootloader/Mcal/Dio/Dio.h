@@ -20,13 +20,11 @@
 /**************************************************************************************************
 *                                       FUNCTION PROTOTYPES                                       *
 **************************************************************************************************/
-void Dio_WritePin(uint8 portNumber, uint8 pinNumber, uint8 value);
-uint8 Dio_ReadPin(uint8 Param_PortNumber, uint8 Param_PinNumber)
-void Dio_WritePort(uint8 Param_PortNumber, uint8 Param_value)
-uint8 Dio_ReadPort(uint8 Param_PortNumber)
-void Dio_SetPinDirection(uint8 Param_PortNumber, uint8 Param_PinNumber, uint8 Param_Mode);
-void Dio_SetPortDirection(uint8 Param_PortNumber, uint8 Param_Mode)
-
-
+boolean Dio_WritePin(uint8 Param_PortNumber, uint8 Param_PinNumber, uint8 Param_value);
+boolean Dio_ReadPin(uint8 Param_PortNumber, uint8 Param_PinNumber, uint8* Param_ReturnValue);
+boolean Dio_WritePort(uint8 Param_PortNumber, uint8 Param_value);
+boolean Dio_ReadPort(uint8 Param_PortNumber, uint8* Param_ReturnValue);
+boolean Dio_SetPinDirection(uint8 Param_PortNumber, uint8 Param_PinNumber, uint8 Param_Mode);
+boolean Dio_SetPortDirection(uint8 Param_PortNumber, uint8 Param_Mode);
 
 #endif /* DIO_H_ */
