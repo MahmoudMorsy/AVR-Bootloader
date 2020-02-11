@@ -104,7 +104,7 @@ boolean Dio_ReadPin(uint8 Param_PortNumber, uint8 Param_PinNumber, uint8* Param_
 	/* Check if Port Number is right. (0-3) */		
 	/* Check if Pin Number is right. (0-7) */
 	/* If passed the checks continue with code */
-	if((Param_PortNumber =<3 && Param_PortNumber => 0 && Loc_Pin =<7 && Loc_Pin =>0)
+	if((Param_PortNumber =<3 && Param_PortNumber => 0 && Loc_Pin =<7 && Loc_Pin =>0 && Param_ReturnValue != NULL_PTR)
 	{
 		uint8 * Loc_PinPtr;
 		uint8 Loc_ReturnValue = LOW;	
@@ -185,7 +185,7 @@ boolean Dio_ReadPort(uint8 Param_PortNumber, uint8* Param_ReturnValue)
 {
 	/* Check if Port Number is right. (0-3) */
 	/* If passed the checks continue with code */
-	if(Param_PortNumber =<3 && Param_PortNumber =>0)
+	if(Param_PortNumber =<3 && Param_PortNumber =>0 && Param_ReturnValue != NULL_PTR)
 	{
 		uint8 * Loc_PinPtr;
 		/* Determine suitable PIN register according to given port number*/
