@@ -6,10 +6,37 @@
 * AUTHOR:            ShroukRashwan
 * DESCRIPTION:       Dio driver functional implementation
 * CREATION DATE:     7/2/2020
-* MODIFICATION DATE: 10/2/2020
+* MODIFICATION DATE: 11/2/2020
 **************************************************************************************************/
 
+/**************************************************************************************************
+*                                       INCLUDES & LIBRARIES                                      *
+**************************************************************************************************/
 #include "Dio.h"
+#include "Dio_Internal.h"
+
+/**************************************************************************************************
+*                                         GLOBAL VARIABLES                                        *
+**************************************************************************************************/
+#if UNIT_TESTING == STD_ON
+	uint8 Dio_PINA																				=0;
+	uint8 Dio_PORTA																				=0;
+	uint8 Dio_DDRA																				=0;
+
+	uint8 Dio_PINB																				=0;
+	uint8 Dio_PORTB																				=0;
+	uint8 Dio_DDRB																				=0;
+	
+	uint8 Dio_PINC																				=0;
+	uint8 Dio_PORTC																				=0;
+	uint8 Dio_DDRC																				=0;
+	
+	uint8 Dio_PIND																				=0;
+	uint8 Dio_PORTD																				=0;
+	uint8 Dio_DDRD																				=0;
+#endif
+
+
 
 /**************************************************************************************************
 *                                     FUNCTIONS IMPLEMENTATION                                    *
@@ -36,16 +63,16 @@ boolean Dio_WritePin(uint8 Param_PortNumber, uint8 Param_PinNumber, uint8 Param_
 		switch (Param_PortNumber)
 		{
 			case 0:
-				Loc_PortPtr = PORTA;		
+				Loc_PortPtr = DIO_PORTA;		
 				break;
 			case 1:
-				Loc_PortPtr = PORTB;
+				Loc_PortPtr = DIO_PORTB;
 				break;
 			case 2:
-				Loc_PortPtr = PORTC;
+				Loc_PortPtr = DIO_PORTC;
 				break;		
 			case 3:
-				Loc_PortPtr = PORTD;
+				Loc_PortPtr = DIO_PORTD;
 				break;		
 			default:
 				break;
@@ -85,16 +112,16 @@ boolean Dio_ReadPin(uint8 Param_PortNumber, uint8 Param_PinNumber, uint8* Param_
 		switch (Param_PortNumber)
 		{
 			case 0:
-			Loc_PinPtr = PINA;
+			Loc_PinPtr = DIO_PINA;
 			break;
 			case 1:
-			Loc_PinPtr = PINB;
+			Loc_PinPtr = DIO_PINB;
 			break;
 			case 2:
-			Loc_PinPtr = PINC;
+			Loc_PinPtr = DIO_PINC;
 			break;
 			case 3:
-			Loc_PinPtr = PIND;
+			Loc_PinPtr = DIO_PIND;
 			break;
 			default:
 			break;
@@ -129,16 +156,16 @@ boolean Dio_WritePort(uint8 Param_PortNumber, uint8 Param_value)
 		switch (Param_PortNumber)
 		{
 			case 0:
-			Loc_PortPtr = PORTA;
+			Loc_PortPtr = DIO_PORTA;
 			break;
 			case 1:
-			Loc_PortPtr = PORTB;
+			Loc_PortPtr = DIO_PORTB;
 			break;
 			case 2:
-			Loc_PortPtr = PORTC;
+			Loc_PortPtr = DIO_PORTC;
 			break;
 			case 3:
-			Loc_PortPtr = PORTD;
+			Loc_PortPtr = DIO_PORTD;
 			break;
 			default:
 			break;
@@ -165,16 +192,16 @@ boolean Dio_ReadPort(uint8 Param_PortNumber, uint8* Param_ReturnValue)
 		switch (Param_PortNumber)
 		{
 			case 0:
-			Loc_PinPtr = PINA;
+			Loc_PinPtr = DIO_PINA;
 			break;
 			case 1:
-			Loc_PinPtr = PINB;
+			Loc_PinPtr = DIO_PINB;
 			break;
 			case 2:
-			Loc_PinPtr = PINC;
+			Loc_PinPtr = DIO_PINC;
 			break;
 			case 3:
-			Loc_PinPtr = PIND;
+			Loc_PinPtr = DIO_PIND;
 			break;
 			default:
 			break;
@@ -204,16 +231,16 @@ boolean Dio_SetPinDirection(uint8 Param_PortNumber, uint8 Param_PinNumber, uint8
 		switch (Param_PortNumber)
 		{
 			case 0:
-			Loc_DdrPtr = DDRA;
+			Loc_DdrPtr = DIO_DDRA;
 			break;
 			case 1:
-			Loc_DdrPtr = DDRB;
+			Loc_DdrPtr = DIO_DDRB;
 			break;
 			case 2:
-			Loc_DdrPtr = DDRC;
+			Loc_DdrPtr = DIO_DDRC;
 			break;
 			case 3:
-			Loc_DdrPtr = DDRD;
+			Loc_DdrPtr = DIO_DDRD;
 			break;
 			default:
 			break;
@@ -248,16 +275,16 @@ boolean Dio_SetPortDirection(uint8 Param_PortNumber, uint8 Param_Mode)
 		switch (Param_PortNumber)
 		{
 			case 0:
-			Loc_DdrPtr = DDRA;
+			Loc_DdrPtr = DIO_DDRA;
 			break;
 			case 1:
-			Loc_DdrPtr = DDRB;
+			Loc_DdrPtr = DIO_DDRB;
 			break;
 			case 2:
-			Loc_DdrPtr = DDRC;
+			Loc_DdrPtr = DIO_DDRC;
 			break;
 			case 3:
-			Loc_DdrPtr = DDRD;
+			Loc_DdrPtr = DIO_DDRD;
 			break;
 			default:
 			break;
