@@ -29,6 +29,8 @@ void UT_RunAllTests()
 	/* USER-MODIFIED-SECTION : List of All unit tests main function to be called here */
 	UT_Eeprom_RunAllTests();
 	UT_SEPARATE_TESTMODULES();
+	UT_Dio_RunAllTests();
+	UT_SEPARATE_TESTMODULES();
 }
 #else
 /* Empty function */
