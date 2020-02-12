@@ -32,8 +32,8 @@ static void Test_Init_ValidInput()
 	ResetAllRegisters();
 	boolean Loc_Return = Adc_Init(0,3,6);
 	UT_ASSERT_EQ("Init_ValidInput", "Adc", Loc_Return, 1,"Correct Return status" ,"Wrong Return status");
-	UT_ASSERT_EQ("Init_ValidInput", "Adc", Adc_ADMUX, 0b11000000,"Correct PORT data" ,"Wrong PORT data");
-	UT_ASSERT_EQ("Init_ValidInput", "Adc", Adc_ADCSRA, 0b11011011,"Correct PORT data" ,"Wrong PORT data");
+	UT_ASSERT_EQ("Init_ValidInput", "Adc", Adc_ADMUX, 0b11000000,"Correct Adc_ADMUX data" ,"Wrong PORT data");
+	UT_ASSERT_EQ("Init_ValidInput", "Adc", Adc_ADCSRA, 0b11011110,"Correct Adc_ADCSRA data" ,"Wrong PORT data");
 	
 }
 
