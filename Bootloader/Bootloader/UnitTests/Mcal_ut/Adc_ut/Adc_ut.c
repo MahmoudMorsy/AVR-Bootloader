@@ -7,12 +7,12 @@
 /**************************************************************************************************
 * FILE INFORMATION
 * -------------------------------------------------------------------------------------------------
-* NAME:              Dio_ut.c
-* MODULE:            Dio Unit Test
+* NAME:              Adc_ut.c
+* MODULE:            Adc Unit Test
 * AUTHOR:            ShroukRashwan
-* DESCRIPTION:       Unit test implementation for Dio Mcal driver
+* DESCRIPTION:       Unit test implementation for Adc Mcal driver
 * CREATION DATE:     7/2/2020
-* MODIFICATION DATE: 11/2/2020
+* MODIFICATION DATE: 12/2/2020
 **************************************************************************************************/
 #include "Adc_ut.h"
 #if UNIT_TESTING == STD_ON
@@ -32,8 +32,8 @@ static void Test_Init_ValidInput()
 	ResetAllRegisters();
 	boolean Loc_Return = Adc_Init(0,3,6);
 	UT_ASSERT_EQ("Init_ValidInput", "Adc", Loc_Return, 1,"Correct Return status" ,"Wrong Return status");
-	UT_ASSERT_EQ("Init_ValidInput", "Adc", ADC_ADMUX, 0b11000000,"Correct PORT data" ,"Wrong PORT data");
-	UT_ASSERT_EQ("Init_ValidInput", "Adc", ADC_ADCSRA, 0b11011011,"Correct PORT data" ,"Wrong PORT data");
+	UT_ASSERT_EQ("Init_ValidInput", "Adc", Adc_ADMUX, 0b11000000,"Correct PORT data" ,"Wrong PORT data");
+	UT_ASSERT_EQ("Init_ValidInput", "Adc", Adc_ADCSRA, 0b11011011,"Correct PORT data" ,"Wrong PORT data");
 	
 }
 
@@ -48,22 +48,21 @@ static void Test_ReadValue_ValidInput()
 {
 	ResetAllRegisters();
 	Adc_Value = 1000;
-	uint8 Loc_ReturnValue = 0;
+	uint16 Loc_ReturnValue = 0;
 	boolean Loc_Return = Adc_ReadValue(&Loc_ReturnValue);
 	UT_ASSERT_EQ("ReadValue_ValidInput", "Adc", Loc_Return, 1,"Correct Return status" ,"Wrong Return status");
-	UT_ASSERT_EQ("ReadValue_ValidInput", "Adc", Loc_ReturnValue, 1000,"Correct Return data" ,"Wrong Reyurn data");
+	UT_ASSERT_EQ("ReadValue_ValidInput", "Adc", Loc_ReturnValue, 1000,"Correct Return data" ,"Wrong Return data");
 }
 
 static void Test_ReadValue_InValidInput()
 {
 	ResetAllRegisters();
 	Adc_Value = 1000;
-	uint8 Loc_ReturnValue = 0;
 	boolean Loc_Return = Adc_ReadValue(NULL_PTR);
 	UT_ASSERT_EQ("ReadValue_InValidInput", "Adc", Loc_Return, 0,"Correct Return status" ,"Wrong Return status");
 }
 
-static void UT_Adc_RunAllTests()
+void UT_Adc_RunAllTests()
 {
 	Test_Init_ValidInput();
 	UT_SEPARATE_TESTCASES();
@@ -73,3 +72,5 @@ static void UT_Adc_RunAllTests()
 	UT_SEPARATE_TESTCASES();
 	Test_ReadValue_InValidInput();
 }
+
+#endif

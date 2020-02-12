@@ -46,47 +46,47 @@ boolean Adc_Init(uint8 Param_ChannelNumber, uint8 Param_VolageReference, uint8 P
 			case 0:
 				CLEAR_BIT(ADC_ADMUX,2);
 				CLEAR_BIT(ADC_ADMUX,1);
-				CLEAR_BIT(ADC_ADMUX.0);
+				CLEAR_BIT(ADC_ADMUX,0);
 			break;			
 			case 1:
 				CLEAR_BIT(ADC_ADMUX,2);
 				CLEAR_BIT(ADC_ADMUX,1);
-				SET_BIT(ADC_ADMUX.0);
+				SET_BIT(ADC_ADMUX,0);
 			break;			
 			case 2:
 				CLEAR_BIT(ADC_ADMUX,2);
 				SET_BIT(ADC_ADMUX,1);
-				CLEAR_BIT(ADC_ADMUX.0);
+				CLEAR_BIT(ADC_ADMUX,0);
 			break;			
 			case 3:
 				CLEAR_BIT(ADC_ADMUX,2);
 				SET_BIT(ADC_ADMUX,1);
-				SET_BIT(ADC_ADMUX.0);
+				SET_BIT(ADC_ADMUX,0);
 			break;			
 			case 4:
 				SET_BIT(ADC_ADMUX,2);
 				CLEAR_BIT(ADC_ADMUX,1);
-				CLEAR_BIT(ADC_ADMUX.0);
+				CLEAR_BIT(ADC_ADMUX,0);
 			break;			
 			case 5:
 				SET_BIT(ADC_ADMUX,2);
 				CLEAR_BIT(ADC_ADMUX,1);
-				SET_BIT(ADC_ADMUX.0);
+				SET_BIT(ADC_ADMUX,0);
 			break;			
 			case 6:
 				SET_BIT(ADC_ADMUX,2);
 				SET_BIT(ADC_ADMUX,1);
-				CLEAR_BIT(ADC_ADMUX.0);
+				CLEAR_BIT(ADC_ADMUX,0);
 			break;			
 			case 7:
 				SET_BIT(ADC_ADMUX,2);
 				SET_BIT(ADC_ADMUX,1);
-				SET_BIT(ADC_ADMUX.0);
+				SET_BIT(ADC_ADMUX,0);
 			break;
 			default:
 				CLEAR_BIT(ADC_ADMUX,2);
 				CLEAR_BIT(ADC_ADMUX,1);
-				CLEAR_BIT(ADC_ADMUX.0);
+				CLEAR_BIT(ADC_ADMUX,0);
 			break;
 		}	
 		
@@ -121,55 +121,55 @@ boolean Adc_Init(uint8 Param_ChannelNumber, uint8 Param_VolageReference, uint8 P
 				/* Divider = 2 */
 				CLEAR_BIT(ADC_ADCSRA,2);
 				CLEAR_BIT(ADC_ADCSRA,1);
-				CLEAR_BIT(ADC_ADCSRA.0);
+				CLEAR_BIT(ADC_ADCSRA,0);
 			break;			
 			case 1:
 				/* Divider = 2 */
 				CLEAR_BIT(ADC_ADCSRA,2);
 				CLEAR_BIT(ADC_ADCSRA,1);
-				SET_BIT(ADC_ADCSRA.0);
+				SET_BIT(ADC_ADCSRA,0);
 			break;			
 			case 2:
 				/* Divider = 4 */
 				CLEAR_BIT(ADC_ADCSRA,2);
 				SET_BIT(ADC_ADCSRA,1);
-				CLEAR_BIT(ADC_ADCSRA.0);
+				CLEAR_BIT(ADC_ADCSRA,0);
 			break;			
 			case 3:
 				/* Divider = 8 */
 				CLEAR_BIT(ADC_ADCSRA,2);
 				SET_BIT(ADC_ADCSRA,1);
-				SET_BIT(ADC_ADCSRA.0);
+				SET_BIT(ADC_ADCSRA,0);
 			break;			
 			case 4:
 				/* Divider = 16 */
 				SET_BIT(ADC_ADCSRA,2);
 				CLEAR_BIT(ADC_ADCSRA,1);
-				CLEAR_BIT(ADC_ADCSRA.0);
+				CLEAR_BIT(ADC_ADCSRA,0);
 			break;			
 			case 5:
 				/* Divider = 32 */
 				SET_BIT(ADC_ADCSRA,2);
 				CLEAR_BIT(ADC_ADCSRA,1);
-				SET_BIT(ADC_ADCSRA.0);
+				SET_BIT(ADC_ADCSRA,0);
 			break;			
 			case 6:
 				/* Divider = 64 */
 				SET_BIT(ADC_ADCSRA,2);
 				SET_BIT(ADC_ADCSRA,1);
-				CLEAR_BIT(ADC_ADCSRA.0);
+				CLEAR_BIT(ADC_ADCSRA,0);
 			break;			
 			case 7:
 				/* Divider = 128 */
 				SET_BIT(ADC_ADCSRA,2);
 				SET_BIT(ADC_ADCSRA,1);
-				SET_BIT(ADC_ADCSRA.0);
+				SET_BIT(ADC_ADCSRA,0);
 			break;
 			default:
 				/* Divider = 2 */
 				CLEAR_BIT(ADC_ADCSRA,2);
 				CLEAR_BIT(ADC_ADCSRA,1);
-				CLEAR_BIT(ADC_ADCSRA.0);
+				CLEAR_BIT(ADC_ADCSRA,0);
 			break;
 		}
 		
@@ -204,7 +204,7 @@ boolean Adc_ReadValue(uint16* Param_ReturnValue)
 	if (Param_ReturnValue != NULL_PTR)
 	{
 		/* Add Value to return to user */
-		Param_ReturnValue = Adc_Value;
+		*Param_ReturnValue = Adc_Value;
 		return TRUE;
 	}
 	else
