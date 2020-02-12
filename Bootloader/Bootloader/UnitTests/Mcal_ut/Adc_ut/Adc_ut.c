@@ -30,10 +30,10 @@ static void ResetAllRegisters()
 static void Test_Init_ValidInput()
 {
 	ResetAllRegisters();
-	boolean Loc_Return = Adc_Init(1,2,3);
+	boolean Loc_Return = Adc_Init(0,3,6);
 	UT_ASSERT_EQ("Init_ValidInput", "Adc", Loc_Return, 1,"Correct Return status" ,"Wrong Return status");
-	UT_ASSERT_EQ("Init_ValidInput", "Adc", ADC_ADMUX, 1010111,"Correct PORT data" ,"Wrong PORT data");
-	UT_ASSERT_EQ("Init_ValidInput", "Adc", ADC_ADCSRA, 1010111,"Correct PORT data" ,"Wrong PORT data");
+	UT_ASSERT_EQ("Init_ValidInput", "Adc", ADC_ADMUX, 0b11000000,"Correct PORT data" ,"Wrong PORT data");
+	UT_ASSERT_EQ("Init_ValidInput", "Adc", ADC_ADCSRA, 0b11011011,"Correct PORT data" ,"Wrong PORT data");
 	
 }
 
@@ -41,7 +41,7 @@ static void Test_Init_InValidInput()
 {
 	ResetAllRegisters();
 	boolean Loc_Return = Adc_Init(1,2,9);
-	UT_ASSERT_EQ("Init_InValidInput", "Adc", Loc_Return, 1,"Correct Return status" ,"Wrong Return status");
+	UT_ASSERT_EQ("Init_InValidInput", "Adc", Loc_Return, 0,"Correct Return status" ,"Wrong Return status");
 }
 
 static void Test_ReadValue_ValidInput()
@@ -60,7 +60,7 @@ static void Test_ReadValue_InValidInput()
 	Adc_Value = 1000;
 	uint8 Loc_ReturnValue = 0;
 	boolean Loc_Return = Adc_ReadValue(NULL_PTR);
-	UT_ASSERT_EQ("ReadValue_InValidInput", "Adc", Loc_Return, 1,"Correct Return status" ,"Wrong Return status");
+	UT_ASSERT_EQ("ReadValue_InValidInput", "Adc", Loc_Return, 0,"Correct Return status" ,"Wrong Return status");
 }
 
 static void UT_Adc_RunAllTests()

@@ -180,7 +180,7 @@ boolean Adc_Init(uint8 Param_ChannelNumber, uint8 Param_VolageReference, uint8 P
 		SET_BIT(ADC_ADCSRA,6);
 		
 		/* Enable start conversion */
-		CLEAR_BIT(ADC_MUX,5);
+		CLEAR_BIT(ADC_ADMUX,5);
 		
 		/* Enable Interrupt Flag */
 		SET_BIT(ADC_ADCSRA,4);
@@ -203,7 +203,7 @@ boolean Adc_ReadValue(uint16* Param_ReturnValue)
 {
 	if (Param_ReturnValue != NULL_PTR)
 	{
-		/* Add Value to reurn to user */
+		/* Add Value to return to user */
 		Param_ReturnValue = Adc_Value;
 		return TRUE;
 	}
