@@ -50,13 +50,11 @@
 */
 boolean Dio_WritePin(uint8 Param_PortNumber, uint8 Param_PinNumber, uint8 Param_value)
 {
-	
-	uint8 Loc_Pin = Param_PinNumber % 8;
 			
 	/* Check if Port Number is right. (0-3) */
 	/* Check if Pin Number is right. (0-7) */
 	/* If passed the checks continue with code */
-	if(Param_PortNumber <=3 && Param_PortNumber >=0 && Loc_Pin <=7 && Loc_Pin >=0)
+	if(Param_PortNumber <=3 && Param_PortNumber >=0 && Param_PinNumber <=7 && Param_PinNumber >=0)
 	{
 		uint8* Loc_PortPtr;		
 		/* Get the suitable PORT according to port number */
@@ -81,12 +79,12 @@ boolean Dio_WritePin(uint8 Param_PortNumber, uint8 Param_PinNumber, uint8 Param_
 		if(HIGH == Param_value)
 		{
 			/* Set pin to high */
-			SET_BIT(*Loc_PortPtr,Loc_Pin);
+			SET_BIT(*Loc_PortPtr,Param_PinNumber);
 		}
 		else
 		{
 			/* Clear pin (LOW) */
-			CLEAR_BIT(*Loc_PortPtr,Loc_Pin);
+			CLEAR_BIT(*Loc_PortPtr,Param_PinNumber);
 		}
 		
 		return TRUE;
@@ -100,11 +98,10 @@ boolean Dio_WritePin(uint8 Param_PortNumber, uint8 Param_PinNumber, uint8 Param_
 
 boolean Dio_ReadPin(uint8 Param_PortNumber, uint8 Param_PinNumber, uint8* Param_ReturnValue)
 {
-	uint8 Loc_Pin = Param_PinNumber % 8;
 	/* Check if Port Number is right. (0-3) */		
 	/* Check if Pin Number is right. (0-7) */
 	/* If passed the checks continue with code */
-	if(Param_PortNumber <=3 && Param_PortNumber >= 0 && Loc_Pin <=7 && Loc_Pin >=0 && Param_ReturnValue != NULL_PTR)
+	if(Param_PortNumber <=3 && Param_PortNumber >= 0 && Param_PinNumber <=7 && Param_PinNumber >=0 && Param_ReturnValue != NULL_PTR)
 	{
 		uint8 * Loc_PinPtr;
 		uint8 Loc_ReturnValue = LOW;	
@@ -127,7 +124,7 @@ boolean Dio_ReadPin(uint8 Param_PortNumber, uint8 Param_PinNumber, uint8* Param_
 			break;
 		}		
 		/* Get pin value and return it to the user*/	
-		if (GET_BIT(*Loc_PinPtr,Loc_Pin))
+		if (GET_BIT(*Loc_PinPtr,Param_PinNumber))
 		{
 			*Param_ReturnValue = HIGH;
 		}
@@ -220,11 +217,10 @@ boolean Dio_ReadPort(uint8 Param_PortNumber, uint8* Param_ReturnValue)
 
 boolean Dio_SetPinDirection(uint8 Param_PortNumber, uint8 Param_PinNumber, uint8 Param_Mode)
 {
-	uint8 Loc_Pin = Param_PinNumber % 8;
 	/* Check if Port Number is right. (0-3) */
 	/* Check if Pin Number is right. (0-7) */
 	/* If passed the checks continue with code */
-	if(Param_PortNumber <=3 && Param_PortNumber >=0 && Loc_Pin <=7 && Loc_Pin >=0 )
+	if(Param_PortNumber <=3 && Param_PortNumber >=0 && Param_PinNumber <=7 && Param_PinNumber >=0 )
 	{
 		uint8* Loc_DdrPtr;
   		/* Get suitable DDR register according to given port number */
@@ -249,11 +245,11 @@ boolean Dio_SetPinDirection(uint8 Param_PortNumber, uint8 Param_PinNumber, uint8
 		/* Set pin with given value */
 		if(HIGH == Param_Mode)
 		{
-			SET_BIT(*Loc_DdrPtr,Loc_Pin);
+			SET_BIT(*Loc_DdrPtr,Param_PinNumber);
 		}
 		else
 		{
-			CLEAR_BIT(*Loc_DdrPtr,Loc_Pin);
+			CLEAR_BIT(*Loc_DdrPtr,Param_PinNumber);
 		}
 		return TRUE;
 	}
