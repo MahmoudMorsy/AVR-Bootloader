@@ -1,3 +1,17 @@
 
 BtldSimulation.pdsprj.AVE-LAP-099.MahmoudMorsy.workspace
 Bootloader/.vs/Bootloader/v14/.atsuo
+*.gch
+*.o
+*.o
+*.map
+*.srec
+*.mk
+*.o
+*.d
+*.eep
+*.elf
+*.hex
+*.lss
+Bootloader/Bootloader/Debug/Makefile
+Bootloader/.vs/Bootloader/v14/.atsuo

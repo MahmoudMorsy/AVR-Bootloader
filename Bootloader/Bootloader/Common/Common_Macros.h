@@ -32,6 +32,8 @@
 /* Boolean State Values definitions */
 #define LOW                                                           (boolean)0
 #define HIGH                                                          (boolean)1
+#define STD_ON                                                                 0
+#define STD_OFF                                                                1
 
 /* Null Pointer definition */
 #define NULL_PTR                                                     ((void *)0)
