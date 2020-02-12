@@ -41,7 +41,7 @@ static void Test_SetPinDirection_ValidInput()
 static void Test_SetPinDirection_InValidInput()
 {
 	ResetAllRegisters();
-	boolean Loc_Return = Dio_SetPinDirection(3,45,0);
+	boolean Loc_Return = Dio_SetPinDirection(3,32,0);
 	UT_ASSERT_EQ("SetPinDirection_InValidInput", "Dio", Loc_Return, 0,"Correct Return status" ,"Wrong Return status");
 	Loc_Return = Dio_SetPinDirection(9,4,0);
 	UT_ASSERT_EQ("SetPinDirection_InValidInput", "Dio", Loc_Return, 0,"Correct Return status" ,"Wrong Return status");
@@ -73,7 +73,7 @@ static void Test_WriteBit_ValidInput()
 static void Test_ReadBit_ValidInput()
 {
 	ResetAllRegisters();
-	Dio_PORTC = 0b1000000;
+	Dio_PORTC = 0b10000000;
 	uint8 Loc_ReturnByte = 0;
 	boolean Loc_Return = Dio_ReadPin(2,7, &Loc_ReturnByte);
 	UT_ASSERT_EQ("ReadBit_ValidInput", "Dio", Loc_Return, 1,"Correct Return status" ,"Wrong Return status");
@@ -85,7 +85,7 @@ static void Test_WriteBit_InValidInput()
 	ResetAllRegisters();
 	boolean Loc_Return = Dio_WritePin(9,4,1);
 	UT_ASSERT_EQ("WriteBit_InValidInput", "Dio", Loc_Return, 0,"Correct Return status" ,"Wrong Return status");
-	Loc_Return = Dio_WritePin(1,54,1);
+	Loc_Return = Dio_WritePin(1,9,1);
 	UT_ASSERT_EQ("WriteBit_InValidInput", "Dio", Loc_Return, 0,"Correct Return status" ,"Wrong Return status");
 	
 }
@@ -94,9 +94,9 @@ static void Test_ReadBit_InValidInput()
 {
 	ResetAllRegisters();
 	
-	Dio_PORTC = 0b1000000;
+	Dio_PORTC = 0b10000000;
 	uint8 Loc_ReturnByte = 0;
-	boolean Loc_Return = Dio_ReadPin(2,8, &Loc_ReturnByte);
+	boolean Loc_Return = Dio_ReadPin(2,60, &Loc_ReturnByte);
 	UT_ASSERT_EQ("ReadBit_InValidInput", "Dio", Loc_Return, 0,"Correct Return status" ,"Wrong Return status");
 	Loc_Return = Dio_ReadPin(2,8, NULL_PTR);
 	UT_ASSERT_EQ("ReadBit_InValidInput", "Dio", Loc_Return, 0,"Correct Return status" ,"Wrong Return status");
@@ -114,11 +114,11 @@ static void Test_WritePort_ValidInput()
 static void Test_ReadPort_ValidInput()
 {
 	ResetAllRegisters();
-	Dio_PORTC = 0b1010111;
+	Dio_PORTA = 0b11111111;
 	uint8 Loc_ReturnByte = 0;
-	boolean Loc_Return = Dio_ReadPort(2,&Loc_ReturnByte);
+	boolean Loc_Return = Dio_ReadPort(0,&Loc_ReturnByte);
 	UT_ASSERT_EQ("ReadPort_ValidInput", "Dio", Loc_Return, 1,"Correct Return status" ,"Wrong Return status");
-	UT_ASSERT_EQ("ReadPort_ValidInput", "Dio", Loc_ReturnByte, 0b1010111,"Correct PORT data" ,"Wrong PORT data");
+	UT_ASSERT_EQ("ReadPort_ValidInput", "Dio", Loc_ReturnByte, 0b11111111,"Correct PORT data" ,"Wrong PORT data");
 }
 
 static void Test_WritePort_InValidInput()
