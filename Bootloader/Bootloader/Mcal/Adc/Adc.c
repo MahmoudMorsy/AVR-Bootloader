@@ -41,55 +41,7 @@ boolean Adc_Init(uint8 Param_ChannelNumber, uint8 Param_VolageReference, uint8 P
 		CLEAR_BIT(ADC_ADMUX,4);
 		CLEAR_BIT(ADC_ADMUX,3);
 		/* Choose channel according to user input */
-		switch(Param_ChannelNumber)
-		{
-			case 0:
-				CLEAR_BIT(ADC_ADMUX,2);
-				CLEAR_BIT(ADC_ADMUX,1);
-				CLEAR_BIT(ADC_ADMUX,0);
-			break;			
-			case 1:
-				CLEAR_BIT(ADC_ADMUX,2);
-				CLEAR_BIT(ADC_ADMUX,1);
-				SET_BIT(ADC_ADMUX,0);
-			break;			
-			case 2:
-				CLEAR_BIT(ADC_ADMUX,2);
-				SET_BIT(ADC_ADMUX,1);
-				CLEAR_BIT(ADC_ADMUX,0);
-			break;			
-			case 3:
-				CLEAR_BIT(ADC_ADMUX,2);
-				SET_BIT(ADC_ADMUX,1);
-				SET_BIT(ADC_ADMUX,0);
-			break;			
-			case 4:
-				SET_BIT(ADC_ADMUX,2);
-				CLEAR_BIT(ADC_ADMUX,1);
-				CLEAR_BIT(ADC_ADMUX,0);
-			break;			
-			case 5:
-				SET_BIT(ADC_ADMUX,2);
-				CLEAR_BIT(ADC_ADMUX,1);
-				SET_BIT(ADC_ADMUX,0);
-			break;			
-			case 6:
-				SET_BIT(ADC_ADMUX,2);
-				SET_BIT(ADC_ADMUX,1);
-				CLEAR_BIT(ADC_ADMUX,0);
-			break;			
-			case 7:
-				SET_BIT(ADC_ADMUX,2);
-				SET_BIT(ADC_ADMUX,1);
-				SET_BIT(ADC_ADMUX,0);
-			break;
-			default:
-				CLEAR_BIT(ADC_ADMUX,2);
-				CLEAR_BIT(ADC_ADMUX,1);
-				CLEAR_BIT(ADC_ADMUX,0);
-			break;
-		}	
-		
+		ADC_ADMUX = ADC_ADMUX | (0xFF & Param_ChannelNumber);
 		/* Choose voltage reference according to user input */
 		switch(Param_VolageReference)
 		{
@@ -115,63 +67,7 @@ boolean Adc_Init(uint8 Param_ChannelNumber, uint8 Param_VolageReference, uint8 P
 			break;
 		}
 		/* Choose pre-scaler according to user input */
-		switch(Param_PreScaler)
-		{
-			case 0:
-				/* Divider = 2 */
-				CLEAR_BIT(ADC_ADCSRA,2);
-				CLEAR_BIT(ADC_ADCSRA,1);
-				CLEAR_BIT(ADC_ADCSRA,0);
-			break;			
-			case 1:
-				/* Divider = 2 */
-				CLEAR_BIT(ADC_ADCSRA,2);
-				CLEAR_BIT(ADC_ADCSRA,1);
-				SET_BIT(ADC_ADCSRA,0);
-			break;			
-			case 2:
-				/* Divider = 4 */
-				CLEAR_BIT(ADC_ADCSRA,2);
-				SET_BIT(ADC_ADCSRA,1);
-				CLEAR_BIT(ADC_ADCSRA,0);
-			break;			
-			case 3:
-				/* Divider = 8 */
-				CLEAR_BIT(ADC_ADCSRA,2);
-				SET_BIT(ADC_ADCSRA,1);
-				SET_BIT(ADC_ADCSRA,0);
-			break;			
-			case 4:
-				/* Divider = 16 */
-				SET_BIT(ADC_ADCSRA,2);
-				CLEAR_BIT(ADC_ADCSRA,1);
-				CLEAR_BIT(ADC_ADCSRA,0);
-			break;			
-			case 5:
-				/* Divider = 32 */
-				SET_BIT(ADC_ADCSRA,2);
-				CLEAR_BIT(ADC_ADCSRA,1);
-				SET_BIT(ADC_ADCSRA,0);
-			break;			
-			case 6:
-				/* Divider = 64 */
-				SET_BIT(ADC_ADCSRA,2);
-				SET_BIT(ADC_ADCSRA,1);
-				CLEAR_BIT(ADC_ADCSRA,0);
-			break;			
-			case 7:
-				/* Divider = 128 */
-				SET_BIT(ADC_ADCSRA,2);
-				SET_BIT(ADC_ADCSRA,1);
-				SET_BIT(ADC_ADCSRA,0);
-			break;
-			default:
-				/* Divider = 2 */
-				CLEAR_BIT(ADC_ADCSRA,2);
-				CLEAR_BIT(ADC_ADCSRA,1);
-				CLEAR_BIT(ADC_ADCSRA,0);
-			break;
-		}
+		ADC_ADCSRA = ADC_ADCSRA | (0xFF & Param_PreScaler);
 		
 		/* Enable Adc */
 		SET_BIT(ADC_ADCSRA,7);
