@@ -26,6 +26,7 @@ extern uint8 Adc_ADCH;
 extern uint8 Adc_ADCL;
 extern uint8 Adc_SFIOR;
 extern uint16 Adc_Value;
+extern uint16 Adc_Values[8];
 
 /**************************************************************************************************
 *                                       FUNCTION PROTOTYPES                                       *

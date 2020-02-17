@@ -47,9 +47,9 @@ static void Test_Init_InValidInput()
 static void Test_ReadValue_ValidInput()
 {
 	ResetAllRegisters();
-	Adc_Value = 1000;
+	Adc_Values[3] = 1000;
 	uint16 Loc_ReturnValue = 0;
-	boolean Loc_Return = Adc_ReadValue(&Loc_ReturnValue);
+	boolean Loc_Return = Adc_ReadValue(&Loc_ReturnValue,3);
 	UT_ASSERT_EQ("ReadValue_ValidInput", "Adc", Loc_Return, 1,"Correct Return status" ,"Wrong Return status");
 	UT_ASSERT_EQ("ReadValue_ValidInput", "Adc", Loc_ReturnValue, 1000,"Correct Return data" ,"Wrong Return data");
 }
@@ -58,8 +58,11 @@ static void Test_ReadValue_InValidInput()
 {
 	ResetAllRegisters();
 	Adc_Value = 1000;
-	boolean Loc_Return = Adc_ReadValue(NULL_PTR);
+    uint16 Loc_ReturnValue = 0;
+	boolean Loc_Return = Adc_ReadValue(NULL_PTR,2);
 	UT_ASSERT_EQ("ReadValue_InValidInput", "Adc", Loc_Return, 0,"Correct Return status" ,"Wrong Return status");
+    Loc_Return = Adc_ReadValue(&Loc_ReturnValue,10);
+    UT_ASSERT_EQ("ReadValue_InValidInput", "Adc", Loc_Return, 0,"Correct Return status" ,"Wrong Return status");
 }
 
 void UT_Adc_RunAllTests()

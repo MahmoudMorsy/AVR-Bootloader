@@ -27,6 +27,7 @@
 #endif
 
 uint16 Adc_Value 																				=0;
+uint16 Adc_Values[8] = {0,0,0,0,0,0,0,0};
 
 
 /**************************************************************************************************
@@ -34,8 +35,8 @@ uint16 Adc_Value 																				=0;
 **************************************************************************************************/
 boolean Adc_Init(uint8 Param_ChannelNumber, uint8 Param_VolageReference, uint8 Param_PreScaler)
 {
-	if (Param_ChannelNumber>=0 && Param_ChannelNumber <=7 && Param_VolageReference >=0 &&
-		Param_VolageReference <=3 &&	Param_PreScaler  >=0 && Param_PreScaler <= 7)
+    boolean Loc_ReturnStatus = TRUE;
+	if ((Param_ChannelNumber <=7) && (Param_VolageReference <=3) &&	(Param_PreScaler <= 7) )
 	{
 		/* No Gain !! */
 		CLEAR_BIT(ADC_ADMUX,4);
@@ -83,36 +84,56 @@ boolean Adc_Init(uint8 Param_ChannelNumber, uint8 Param_VolageReference, uint8 P
 		
 		/* Enable Interrupt */
 		sei();
-		SET_BIT(ADC_ADCSRA,3);
-		
-		return TRUE;
-		
+		SET_BIT(ADC_ADCSRA,3);	
 	}
 	else
 	{
-		//Error in parameters
-		return FALSE;
+		/*Error in parameters*/
+		Loc_ReturnStatus = FALSE;
 	}
+    
+    return Loc_ReturnStatus;
 }
 
-boolean Adc_ReadValue(uint16* Param_ReturnValue)
+boolean Adc_ReadValue(uint16* Param_ReturnValue, uint8 Param_Channel)
 {
-	if (Param_ReturnValue != NULL_PTR)
+    boolean Loc_ReturnStatus = TRUE;
+	if ((Param_ReturnValue != NULL_PTR) && (Param_Channel <=7))
 	{
 		/* Add Value to return to user */
-		*Param_ReturnValue = Adc_Value;
-		return TRUE;
+		*Param_ReturnValue = Adc_Values[Param_Channel];
 	}
 	else
 	{
-		//Error in parameters
-		return FALSE;
+		/*Error in parameters*/
+		Loc_ReturnStatus = FALSE;
 	}
+    
+    return Loc_ReturnStatus;
 }
 
 
 ISR(ADC_vect)
 {
+    /* Get Current Channel */
+    uint8 currentChannel = ADC_ADMUX & 0x0F;
 	/* Get Values from both registers */
-	Adc_Value = ADC_ADCH << 7 || ADC_ADCL;
+	Adc_Values[currentChannel] = ADC_ADCH << 7 || ADC_ADCL
+    
+    /* if reached last channel reset */
+    if(currentChannel == 7)
+    {
+       currentChannel = 255;
+    }
+    else
+    {
+        /* Do nothing */
+    }
+    
+    /* Go to next Channel and Start Conversion */
+    ADC_ADMUX = ADC_ADMUX | (0xFF & (currentChannel+1));
+    /* Enable start conversion */
+    SET_BIT(ADC_ADCSRA,6);
+    
+    
 }
