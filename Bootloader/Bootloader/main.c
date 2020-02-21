@@ -21,19 +21,35 @@
 **************************************************************************************************/
 #include <avr/io.h>
 #include <util/delay.h>
-
+#include "Wdg.h"
+#include "Eeprom.h"
 /**************************************************************************************************
 *                                     FUNCTIONS IMPLEMENTATION                                    *
 **************************************************************************************************/
+static uint8 counter = 0;
 int main(void)
 {
+    Wdg_AdjustPrescaler(OSC_512);
+    Wdg_Enable();
+    Eeprom_ReadByte(0, &counter);
+    counter++;
+    Eeprom_WriteByte(0, counter);
 	DDRA = 0xFF;
+    SET_BIT(PORTA, 0);
+    _delay_ms(500);
+    CLEAR_BIT(PORTA, 0);
+    Wdg_Feed();
+    Wdg_Disable();
 	while (1)
 	{
+            
+
 		SET_BIT(PORTA, 5);
-		_delay_ms(1000);
+		_delay_ms(500);
+        Wdg_Feed();
 		CLEAR_BIT(PORTA, 5);
-		_delay_ms(1000);
+		_delay_ms(500);
+                
 	}
 	return 0;
 }
