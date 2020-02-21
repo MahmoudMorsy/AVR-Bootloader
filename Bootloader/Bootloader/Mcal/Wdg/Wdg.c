@@ -8,8 +8,7 @@
 * CREATION DATE:     20/2/2020
 * MODIFICATION DATE: 21/2/2020
 **************************************************************************************************/
-#include "Wdg.h"
-#include <avr/io.h>
+#include "Wdg_Internal.h"
 
 /**************************************************************************************************
 *                                         GLOBAL VARIABLES                                        *
@@ -18,6 +17,10 @@
 STATIC Wdg_OscCycles_en Wdg_CurrentPrescaler                                              = OSC_16;
 /* Global variable to store the current watch dog status */
 STATIC Wdg_State_en Wdg_CurrentState                                                    = DISABLED;
+
+#if UNIT_TESTING == STD_ON
+    uint8 Wdg_WDTCR                                                                            = 0;
+#endif
 
 /**************************************************************************************************
 *                                     FUNCTIONS IMPLEMENTATION                                    *
@@ -34,9 +37,9 @@ void Wdg_Enable()
     if (Wdg_CurrentState == DISABLED)
     {
         /* To Enable WDG, Set bit WDE */
-        SET_BIT(WDTCR, WDE);
+        SET_BIT(WDG_WDTCR, WDE);
         /* Within four cycles, set the pre-scaler bits */
-        WDTCR |= (uint8)(Wdg_CurrentPrescaler & WDG_PRESCALER_MASK);
+        WDG_WDTCR |= (uint8)(Wdg_CurrentPrescaler & WDG_PRESCALER_MASK);
         /* Set driver's current state as enabled (running) */
         Wdg_CurrentState = RUNNING;
     }
@@ -69,8 +72,8 @@ void Wdg_Disable()
         /* Reset Watch dog */
         Wdg_Reset();
         /* To disable WDG, Write 1 in WDTOE and WDE at the same time, then Write 0 in WDE within 4 clock cycles */
-        WDTCR |= (1<<WDTOE) | (1<<WDE);
-        WDTCR = 0;
+        WDG_WDTCR |= (1<<WDTOE) | (1<<WDE);
+        WDG_WDTCR = 0;
         /* Set driver's current state as disabled */
         Wdg_CurrentState = DISABLED;        
     }
