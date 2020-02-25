@@ -116,7 +116,7 @@ boolean Adc_ReadValue(uint16* Param_ReturnValue, uint8 Param_Channel)
 ISR(ADC_vect)
 {
     /* Get Current Channel */
-    uint8 currentChannel = ADC_ADMUX & 0x0F;
+    uint8 currentChannel = ADC_ADMUX & 0x07;
     /* Get Values from both registers */
     Adc_Values[currentChannel] = ADC_ADCH << 8 || ADC_ADCL;
     
