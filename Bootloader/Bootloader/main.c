@@ -29,10 +29,10 @@
 int main(void)
 {
     DDRA = 0xFF;
-    Adc_Init(0,1,0);
+    Adc_Init(PORT_A,1,0);
     while (1)
     {
-        uint16 value;
+        uint16 value = 0;
         Adc_ReadValue(&value,0);
     }
     return 0;

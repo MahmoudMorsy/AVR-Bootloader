@@ -16,8 +16,8 @@
 **************************************************************************************************/
 #include "Adc.h"
 #if UNIT_TESTING == STD_OFF
-	#include <avr/io.h>
-	#include <avr/interrupt.h>
+#include <avr/io.h>
+#include <avr/interrupt.h>
 #endif
 
 /**************************************************************************************************
@@ -26,20 +26,20 @@
 
 /* Stubbing for unit testing */
 #if UNIT_TESTING == STD_ON
-	/* Replacing Registers with Global Variables */
-	#define ADC_ADMUX																	 Adc_ADMUX																				
-	#define ADC_ADCSRA																	 Adc_ADCSRA		
-	#define ADC_ADCH																	 Adc_ADCH			
-	#define ADC_ADCL																	 Adc_ADCL																				
-	#define ADC_SFIOR																	 Adc_SFIOR
-	#define sei()
+/* Replacing Registers with Global Variables */
+#define ADC_ADMUX                                                                        Adc_ADMUX
+#define ADC_ADCSRA                                                                       Adc_ADCSRA
+#define ADC_ADCH                                                                         Adc_ADCH
+#define ADC_ADCL                                                                         Adc_ADCL
+#define ADC_SFIOR                                                                        Adc_SFIOR
+#define sei()
 #else
-	/* Putting actual register addresses */
-	#define ADC_ADMUX																		ADMUX
-	#define ADC_ADCSRA																		ADCSRA
-	#define ADC_ADCH																		ADCH
-	#define ADC_ADCL																		ADCL
-	#define ADC_SFIOR																		SFIOR
+/* Putting actual register addresses */
+#define ADC_ADMUX                                                                           ADMUX
+#define ADC_ADCSRA                                                                          ADCSRA
+#define ADC_ADCH                                                                            ADCH
+#define ADC_ADCL                                                                            ADCL
+#define ADC_SFIOR                                                                           SFIOR
 
 #endif
 
