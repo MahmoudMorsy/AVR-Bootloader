@@ -118,7 +118,7 @@ ISR(ADC_vect)
     /* Get Current Channel */
     uint8 currentChannel = ADC_ADMUX & 0x0F;
 	/* Get Values from both registers */
-	Adc_Values[currentChannel] = ADC_ADCH << 7 || ADC_ADCL
+	Adc_Values[currentChannel] = ADC_ADCH << 7 || ADC_ADCL;
     
     /* if reached last channel reset */
     if(currentChannel == 7)

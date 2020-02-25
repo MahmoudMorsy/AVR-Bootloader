@@ -10,7 +10,7 @@
 #define PROJECTSETTINGS_H_
 
 /* To enable or disable UNIT TESTING */
-#define UNIT_TESTING            STD_ON
+#define UNIT_TESTING            STD_OFF
 
 
 
