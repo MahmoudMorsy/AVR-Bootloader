@@ -46,23 +46,23 @@ boolean Dio_WritePin(uint8 Param_PortNumber, uint8 Param_PinNumber, uint8 Param_
     /* Check if Port Number is right. (0-3) */
     /* Check if Pin Number is right. (0-7) */
     /* If passed the checks continue with code */
-    if( (Param_PortNumber <=3 ) && (Param_PinNumber <=7))
+    if( (Param_PortNumber <= DIO_NUMBER_OF_PORTS ) && (Param_PinNumber <= DIO_NUMBER_OF_CHANNELS))
     {
         uint8* Loc_PortPtr;
         boolean Loc_ReturnStatus = TRUE;
         /* Get the suitable PORT according to port number */
         switch (Param_PortNumber)
         {
-            case 0:
+            case PORT_A:
             Loc_PortPtr = &DIO_PORTA;
             break;
-            case 1:
+            case PORT_B:
             Loc_PortPtr = &DIO_PORTB;
             break;
-            case 2:
+            case PORT_C:
             Loc_PortPtr = &DIO_PORTC;
             break;
-            case 3:
+            case PORT_D:
             Loc_PortPtr = &DIO_PORTD;
             break;
             default:
@@ -96,23 +96,23 @@ boolean Dio_ReadPin(uint8 Param_PortNumber, uint8 Param_PinNumber, uint8* Param_
     /* Check if Port Number is right. (0-3) */
     /* Check if Pin Number is right. (0-7) */
     /* If passed the checks continue with code */
-    if( (Param_PortNumber <=3 ) && (Param_PinNumber <=7)  && (Param_ReturnValue != NULL_PTR))
+    if( (Param_PortNumber <= DIO_NUMBER_OF_PORTS ) && (Param_PinNumber <= DIO_NUMBER_OF_CHANNELS)  && (Param_ReturnValue != NULL_PTR))
     {
         uint8 * Loc_PinPtr;
         uint8 Loc_ReturnValue = LOW;
         /* Get Suitable PIN register according to Port number */
         switch (Param_PortNumber)
         {
-            case 0:
+            case PORT_A:
             Loc_PinPtr = &DIO_PINA;
             break;
-            case 1:
+            case PORT_B:
             Loc_PinPtr = &DIO_PINB;
             break;
-            case 2:
+            case PORT_C:
             Loc_PinPtr = &DIO_PINC;
             break;
-            case 3:
+            case PORT_D:
             Loc_PinPtr = &DIO_PIND;
             break;
             default:
@@ -134,22 +134,22 @@ boolean Dio_WritePort(uint8 Param_PortNumber, uint8 Param_Value)
     boolean Loc_ReturnStatus = TRUE;
     /* Check if Port Number is right. (0-3) */
     /* If passed the checks continue with code */
-    if(Param_PortNumber <=3)
+    if(Param_PortNumber <= DIO_NUMBER_OF_PORTS)
     {
         uint8* Loc_PortPtr;
         /* Get suitable PORT register according to port number*/
         switch (Param_PortNumber)
         {
-            case 0:
+            case PORT_A:
             Loc_PortPtr = &DIO_PORTA;
             break;
-            case 1:
+            case PORT_B:
             Loc_PortPtr = &DIO_PORTB;
             break;
-            case 2:
+            case PORT_C:
             Loc_PortPtr = &DIO_PORTC;
             break;
-            case 3:
+            case PORT_D:
             Loc_PortPtr = &DIO_PORTD;
             break;
             default:
@@ -171,22 +171,22 @@ boolean Dio_ReadPort(uint8 Param_PortNumber, uint8* Param_ReturnValue)
     boolean Loc_ReturnStatus = TRUE;
     /* Check if Port Number is right. (0-3) */
     /* If passed the checks continue with code */
-    if( (Param_PortNumber <=3) && (Param_ReturnValue != NULL_PTR) )
+    if( (Param_PortNumber <= DIO_NUMBER_OF_PORTS) && (Param_ReturnValue != NULL_PTR) )
     {
         uint8 * Loc_PinPtr;
         /* Determine suitable PIN register according to given port number*/
         switch (Param_PortNumber)
         {
-            case 0:
+            case PORT_A:
             Loc_PinPtr = &DIO_PINA;
             break;
-            case 1:
+            case PORT_B:
             Loc_PinPtr = &DIO_PINB;
             break;
-            case 2:
+            case PORT_C:
             Loc_PinPtr = &DIO_PINC;
             break;
-            case 3:
+            case PORT_D:
             Loc_PinPtr = &DIO_PIND;
             break;
             default:
@@ -210,22 +210,22 @@ boolean Dio_SetPinDirection(uint8 Param_PortNumber, uint8 Param_PinNumber, uint8
     /* Check if Port Number is right. (0-3) */
     /* Check if Pin Number is right. (0-7) */
     /* If passed the checks continue with code */
-    if( (Param_PortNumber <=3 ) && (Param_PinNumber <=7) && (Param_Mode < 2) )
+    if( (Param_PortNumber <= DIO_NUMBER_OF_PORTS ) && (Param_PinNumber <= DIO_NUMBER_OF_CHANNELS) && (Param_Mode < 2) )
     {
         uint8* Loc_DdrPtr;
         /* Get suitable DDR register according to given port number */
         switch (Param_PortNumber)
         {
-            case 0:
+            case PORT_A:
             Loc_DdrPtr = &DIO_DDRA;
             break;
-            case 1:
+            case PORT_B:
             Loc_DdrPtr = &DIO_DDRB;
             break;
-            case 2:
+            case PORT_C:
             Loc_DdrPtr = &DIO_DDRC;
             break;
-            case 3:
+            case PORT_C:
             Loc_DdrPtr = &DIO_DDRD;
             break;
             default:
@@ -233,7 +233,7 @@ boolean Dio_SetPinDirection(uint8 Param_PortNumber, uint8 Param_PinNumber, uint8
         }
         
         /* Set pin with given value */
-        if(HIGH == Param_Mode)
+        if(INPUT == Param_Mode)
         {
             SET_BIT(*Loc_DdrPtr,Param_PinNumber);
         }
@@ -255,22 +255,22 @@ boolean Dio_SetPortDirection(uint8 Param_PortNumber, uint8 Param_Mode)
     boolean Loc_ReturnStatus = TRUE;
     /* Check if Port Number is right. (0-3) */
     /* If passed the checks continue with code */
-    if( (Param_PortNumber <=3) && (Param_Mode <2) )
+    if( (Param_PortNumber <= DIO_NUMBER_OF_PORTS))
     {
         uint8* Loc_DdrPtr;
         /* Get suitable DDR register according to given port number */
         switch (Param_PortNumber)
         {
-            case 0:
+            case PORT_A:
             Loc_DdrPtr = &DIO_DDRA;
             break;
-            case 1:
+            case PORT_B:
             Loc_DdrPtr = &DIO_DDRB;
             break;
-            case 2:
+            case PORT_C:
             Loc_DdrPtr = &DIO_DDRC;
             break;
-            case 3:
+            case PORT_D:
             Loc_DdrPtr = &DIO_DDRD;
             break;
             default:

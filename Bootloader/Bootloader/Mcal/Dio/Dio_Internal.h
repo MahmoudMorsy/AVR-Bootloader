@@ -23,6 +23,8 @@
 /**************************************************************************************************
 *                                        MACRO DEFINITIONS                                        *
 **************************************************************************************************/
+#define DIO_NUMBER_OF_PORTS                                                                      3
+#define DIO_NUMBER_OF_CHANNELS                                                                   7
 
 /* Stubbing for unit testing */
 #if UNIT_TESTING == STD_ON
@@ -63,6 +65,19 @@
 	#define DIO_DDRD																		DDRD
 #endif
 
+enum 
+{
+    PORT_A,
+    PORT_B,
+    PORT_C,
+    PORT_D
+};
+
+enum
+{
+    OUTPUT,
+    INPUT    
+};
 
 
 
