@@ -24,10 +24,10 @@ uint8 Adc_ADCSRA                                                                
 uint8 Adc_ADCH                                                                                 =0;
 uint8 Adc_ADCL                                                                                 =0;
 uint8 Adc_SFIOR                                                                                =0;
+uint16 Adc_DATA                                                                                =0;
 #endif
-
-uint16 Adc_Value                                                                               =0;                               
-uint16 Adc_Values[8] = {0,0,0,0,0,0,0,0};
+                              
+uint16 Adc_Values[ADC_NUMBER_OF_CHANNELS+1] = {0,0,0,0,0,0,0,0};
 
 
 /**************************************************************************************************
@@ -36,55 +36,58 @@ uint16 Adc_Values[8] = {0,0,0,0,0,0,0,0};
 boolean Adc_Init(uint8 Param_ChannelNumber, uint8 Param_VolageReference, uint8 Param_PreScaler)
 {
     boolean Loc_ReturnStatus = TRUE;
-    if ((Param_ChannelNumber <=7) && (Param_VolageReference <=3) && (Param_PreScaler <= 7) )
+    if ((Param_ChannelNumber <=ADC_NUMBER_OF_CHANNELS) && (Param_VolageReference <=3) && (Param_PreScaler <= 7) )
     {
         /* No Gain !! */
-        CLEAR_BIT(ADC_ADMUX,4);
-        CLEAR_BIT(ADC_ADMUX,3);
+        CLEAR_BIT(ADC_ADMUX,MUX4);
+        CLEAR_BIT(ADC_ADMUX,MUX3);
         /* Choose channel according to user input */
         ADC_ADMUX = (ADC_ADMUX & 0xF8 ) | Param_ChannelNumber;
         /* Choose voltage reference according to user input */
         switch(Param_VolageReference)
         {
-            case 0:
+            case AREF:
             /* AREF, Internal Vref turned off */
-            CLEAR_BIT(ADC_ADMUX,7);
-            CLEAR_BIT(ADC_ADMUX,6);
+            CLEAR_BIT(ADC_ADMUX,REFS1);
+            CLEAR_BIT(ADC_ADMUX,REFS0);
             break;
-            case 1:
+            case AVCC:
             /* AVCC with external capacitor at AREF pin */
-            CLEAR_BIT(ADC_ADMUX,7);
-            SET_BIT(ADC_ADMUX,6);
+            CLEAR_BIT(ADC_ADMUX,REFS1);
+            SET_BIT(ADC_ADMUX,REFS0);
             break;
-            case 3:
+            case INTERNAL_2V:
             /* Internal 2.56V Voltage Reference with external capacitor at AREF pin */
-            SET_BIT(ADC_ADMUX,7);
-            SET_BIT(ADC_ADMUX,6);
+            SET_BIT(ADC_ADMUX,REFS1);
+            SET_BIT(ADC_ADMUX,REFS0);
             break;
             default:
             /* AREF, Internal Vref turned off */
-            CLEAR_BIT(ADC_ADMUX,7);
-            CLEAR_BIT(ADC_ADMUX,6);
+            CLEAR_BIT(ADC_ADMUX,REFS1);
+            CLEAR_BIT(ADC_ADMUX,REFS0);
             break;
         }
         /* Choose pre-scaler according to user input */
         ADC_ADCSRA = (ADC_ADCSRA & 0xF8 ) | Param_PreScaler;
         
         /* Enable Adc */
-        SET_BIT(ADC_ADCSRA,7);
+        SET_BIT(ADC_ADCSRA,ADEN);
         
         /* Enable start conversion */
-        SET_BIT(ADC_ADCSRA,6);
+        SET_BIT(ADC_ADCSRA,ADSC);
         
-        /* Enable start conversion */
-        CLEAR_BIT(ADC_ADMUX,5);
+        /* ADC Left Adjust Result */
+        CLEAR_BIT(ADC_ADMUX,ADLAR);
+        
+        /* ADC Auto Trigger Enable */
+       // SET_BIT(ADC_ADCSRA,ADATE);
         
         /* Enable Interrupt Flag */
-        SET_BIT(ADC_ADCSRA,4);
+        SET_BIT(ADC_ADCSRA,ADIF);
         
         /* Enable Interrupt */
         sei();
-        SET_BIT(ADC_ADCSRA,3);
+        SET_BIT(ADC_ADCSRA,ADIE);
     }
     else
     {
@@ -98,7 +101,7 @@ boolean Adc_Init(uint8 Param_ChannelNumber, uint8 Param_VolageReference, uint8 P
 boolean Adc_ReadValue(uint16* Param_ReturnValue, uint8 Param_Channel)
 {
     boolean Loc_ReturnStatus = TRUE;
-    if ((Param_ReturnValue != NULL_PTR) && (Param_Channel <=7))
+    if ((Param_ReturnValue != NULL_PTR) && (Param_Channel <=ADC_NUMBER_OF_CHANNELS))
     {
         /* Add Value to return to user */
         *Param_ReturnValue = Adc_Values[Param_Channel];
@@ -118,10 +121,10 @@ ISR(ADC_vect)
     /* Get Current Channel */
     uint8 currentChannel = ADC_ADMUX & 0x07;
     /* Get Values from both registers */
-    Adc_Values[currentChannel] = ADC_ADCH << 8 | ADC_ADCL;
+    Adc_Values[currentChannel] = ADC_DATA;//ADC_ADCH << 8 | ADC_ADCL;
     
     /* if reached last channel reset */
-    if(currentChannel == 7)
+    if(currentChannel == ADC_NUMBER_OF_CHANNELS)
     {
         currentChannel = 255;
     }
@@ -133,7 +136,7 @@ ISR(ADC_vect)
     /* Go to next Channel and Start Conversion */
     ADC_ADMUX = (ADC_ADMUX & 0xF8 ) | (currentChannel+1);
     /* Enable start conversion */
-    SET_BIT(ADC_ADCSRA,6);
+    SET_BIT(ADC_ADCSRA,ADSC);
     
     
 }

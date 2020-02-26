@@ -23,7 +23,7 @@
 /**************************************************************************************************
 *                                        MACRO DEFINITIONS                                        *
 **************************************************************************************************/
-
+#define ADC_NUMBER_OF_CHANNELS                                                                  7
 /* Stubbing for unit testing */
 #if UNIT_TESTING == STD_ON
 /* Replacing Registers with Global Variables */
@@ -32,7 +32,18 @@
 #define ADC_ADCH                                                                         Adc_ADCH
 #define ADC_ADCL                                                                         Adc_ADCL
 #define ADC_SFIOR                                                                        Adc_SFIOR
+#define ADC_DATA                                                                         Adc_DATA
 #define sei()
+#define REFS1                                                                                   7
+#define REFS0                                                                                   6
+#define ADLAR                                                                                   5
+#define MUX4                                                                                    4
+#define MUX3                                                                                    3
+#define ADEN                                                                                    7
+#define ADSC                                                                                    6
+#define ADATE                                                                                   5
+#define ADIF                                                                                    4
+#define ADIE                                                                                    3
 #else
 /* Putting actual register addresses */
 #define ADC_ADMUX                                                                           ADMUX
@@ -40,7 +51,27 @@
 #define ADC_ADCH                                                                            ADCH
 #define ADC_ADCL                                                                            ADCL
 #define ADC_SFIOR                                                                           SFIOR
+#define ADC_DATA                                                                            ADC
 
 #endif
+
+enum 
+{
+    AREF,
+    AVCC,
+    INTERNAL_2V = 3
+};
+    
+enum 
+{
+   CHANNAL0, 
+   CHANNAL1, 
+   CHANNAL2, 
+   CHANNAL3, 
+   CHANNAL4, 
+   CHANNAL5, 
+   CHANNAL6, 
+   CHANNAL7
+};
 
 #endif /* ADC_INTERNAL_H_ */

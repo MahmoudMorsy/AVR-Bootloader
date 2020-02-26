@@ -22,19 +22,21 @@
 #include <avr/io.h>
 #include <util/delay.h>
 #include "Adc.h"
+#include "Adc_Internal.h"
 
 
 /**************************************************************************************************
 *                                     FUNCTIONS IMPLEMENTATION                                    *
 **************************************************************************************************/
+
 int main(void)
 {
     DDRA = 0xFF;
-    Adc_Init(0,1,0);
+    Adc_Init(CHANNAL0,AVCC,7);
     while (1)
     {
         uint16 value = 0;
-        Adc_ReadValue(&value,0);
+        Adc_ReadValue(&value,CHANNAL0);
     }
     return 0;
 }

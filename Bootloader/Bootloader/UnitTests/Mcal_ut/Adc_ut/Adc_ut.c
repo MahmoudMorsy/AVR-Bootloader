@@ -57,7 +57,7 @@ static void Test_ReadValue_ValidInput()
 static void Test_ReadValue_InValidInput()
 {
     ResetAllRegisters();
-    Adc_Value = 1000;
+    Adc_Values[2] = 1000;
     uint16 Loc_ReturnValue = 0;
     boolean Loc_Return = Adc_ReadValue(NULL_PTR,2);
     UT_ASSERT_EQ("ReadValue_InValidInput", "Adc", Loc_Return, 0,"Correct Return status" ,"Wrong Return status");
