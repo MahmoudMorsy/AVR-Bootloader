@@ -23,8 +23,8 @@
 /**************************************************************************************************
 *                                        MACRO DEFINITIONS                                        *
 **************************************************************************************************/
-#define DIO_NUMBER_OF_PORTS                                                                      3
-#define DIO_NUMBER_OF_CHANNELS                                                                   7
+#define DIO_NUMBER_OF_PORTS                                                                      4
+#define DIO_NUMBER_OF_CHANNELS                                                                   8
 
 /* Stubbing for unit testing */
 #if UNIT_TESTING == STD_ON
@@ -43,8 +43,9 @@
 	
 	#define DIO_PIND																	 Dio_PIND
 	#define DIO_PORTD																	 Dio_PORTD
-	#define DIO_DDRD																	 Dio_DDRD
-
+	#define DIO_DDRD	                                                                 Dio_DDRD
+    #define DIO_SFIOR		                                                             Dio_SFIOR
+    #define PUD                                                                                  2
 
 #else
 	/* Putting actual register addresses */
@@ -63,6 +64,7 @@
 	#define DIO_PIND																		PIND
 	#define DIO_PORTD																		PORTD
 	#define DIO_DDRD																		DDRD
+    #define DIO_SFIOR		                                                                SFIOR
 #endif
 
 enum 
@@ -75,8 +77,9 @@ enum
 
 enum
 {
+    INPUT,
     OUTPUT,
-    INPUT    
+    INPUT_PULLUP    
 };
 
 
