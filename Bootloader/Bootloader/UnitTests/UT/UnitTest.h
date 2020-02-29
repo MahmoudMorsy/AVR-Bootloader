@@ -41,7 +41,7 @@ char *: "%s", \
 void *: "%p")
 /* Macro function to print test cases header once */
 #define UT_PRINT_HEADER() printf(" STATUS | MODULE | TESTCASE |   CUSTOM MESSAGE   |\n");\
-						  printf("--------------------------------------------------\n")
+                          printf("--------------------------------------------------\n")
 
 /* Macro function to print a separator line between test cases */
 #define UT_SEPARATE_TESTCASES() printf("\n")
@@ -62,16 +62,16 @@ void *: "%p")
 #define UT_CONDITION_EVAL(Condition, CompareVariable,  ExpectedValue,  TestName, ModuleName, PassedMsg, FailureMsg)\
 if (Condition)\
 {\
-	UT_PASS_MSG(ModuleName, TestName, PassedMsg);\
+    UT_PASS_MSG(ModuleName, TestName, PassedMsg);\
 }\
 else\
 {\
-	UT_FAIL_MSG(ModuleName, TestName, FailureMsg);\
-	printf("    Expected Value = ");\
-	print(ExpectedValue);\
-	printf(", but Actual Value = ");\
-	print(CompareVariable);\
-	printf(".\n");\
+    UT_FAIL_MSG(ModuleName, TestName, FailureMsg);\
+    printf("    Expected Value = ");\
+    print(ExpectedValue);\
+    printf(", but Actual Value = ");\
+    print(CompareVariable);\
+    printf(".\n");\
 }
 
 /* ASSERT_EQ : Compares CompareVariable and ExpectedValue variables and checks if they are equal
@@ -84,7 +84,7 @@ else\
  * FailureMsg: Custom Message to be printed if test fails
  */
 #define UT_ASSERT_EQ(TestName, ModuleName, CompareVariable,  ExpectedValue,  PassedMsg, FailureMsg)\
-	UT_CONDITION_EVAL(CompareVariable == ExpectedValue,  CompareVariable,  ExpectedValue,  TestName, ModuleName, PassedMsg, FailureMsg);
+    UT_CONDITION_EVAL(CompareVariable == ExpectedValue,  CompareVariable,  ExpectedValue,  TestName, ModuleName, PassedMsg, FailureMsg);
 
 /* ASSERT_EQ : Compares CompareVariable and ExpectedValue variables and checks if they are equal
  * ModuleName: Module Name
@@ -96,8 +96,8 @@ else\
  * FailureMsg: Custom Message to be printed if test fails
  */
 #define UT_ASSERT_NOTEQ(TestName, ModuleName, CompareVariable,  ExpectedValue,  PassedMsg, FailureMsg)\
-	UT_CONDITION_EVAL(CompareVariable != ExpectedValue,  CompareVariable,  ExpectedValue,  TestName, ModuleName, PassedMsg, FailureMsg);
-	
+    UT_CONDITION_EVAL(CompareVariable != ExpectedValue,  CompareVariable,  ExpectedValue,  TestName, ModuleName, PassedMsg, FailureMsg);
+    
 /* ASSERT_LESSTHAN : Compares CompareVariable and ExpectedValue variables and checks if CompareVariable is less than ExpectedValue
  * ModuleName: Module Name
  * TestName: Name of your test case
@@ -108,7 +108,7 @@ else\
  * FailureMsg: Custom Message to be printed if test fails
  */
 #define UT_ASSERT_LESSTHAN(TestName, ModuleName, CompareVariable,  ExpectedValue,  PassedMsg, FailureMsg)\
-	UT_CONDITION_EVAL(CompareVariable < ExpectedValue,  CompareVariable,  ExpectedValue,  TestName, ModuleName, PassedMsg, FailureMsg);
+    UT_CONDITION_EVAL(CompareVariable < ExpectedValue,  CompareVariable,  ExpectedValue,  TestName, ModuleName, PassedMsg, FailureMsg);
 
 /* ASSERT_GREATERTHAN : Compares CompareVariable and ExpectedValue variables and checks if CompareVariable is greater than ExpectedValue
  * ModuleName: Module Name
@@ -120,7 +120,7 @@ else\
  * FailureMsg: Custom Message to be printed if test fails
  */
 #define UT_ASSERT_GREATERTHAN(TestName, ModuleName, CompareVariable,  ExpectedValue,  PassedMsg, FailureMsg)\
-	UT_CONDITION_EVAL(CompareVariable > ExpectedValue,  CompareVariable,  ExpectedValue,  TestName, ModuleName, PassedMsg, FailureMsg);
+    UT_CONDITION_EVAL(CompareVariable > ExpectedValue,  CompareVariable,  ExpectedValue,  TestName, ModuleName, PassedMsg, FailureMsg);
 
 /* ASSERT_LESSTHAN_OR_EQ : Compares CompareVariable and ExpectedValue variables and checks if CompareVariable is less or equal than ExpectedValue
  * ModuleName: Module Name
@@ -132,7 +132,7 @@ else\
  * FailureMsg: Custom Message to be printed if test fails
  */
 #define UT_ASSERT_LESSTHAN_OR_EQ(TestName, ModuleName, CompareVariable,  ExpectedValue,  PassedMsg, FailureMsg)\
-	UT_CONDITION_EVAL(CompareVariable <= ExpectedValue,  CompareVariable,  ExpectedValue,  TestName, ModuleName, PassedMsg, FailureMsg);
+    UT_CONDITION_EVAL(CompareVariable <= ExpectedValue,  CompareVariable,  ExpectedValue,  TestName, ModuleName, PassedMsg, FailureMsg);
 
 /* ASSERT_GREATERTHAN : Compares CompareVariable and ExpectedValue variables and checks if CompareVariable is greater than ExpectedValue
  * ModuleName: Module Name
@@ -144,7 +144,7 @@ else\
  * FailureMsg: Custom Message to be printed if test fails
  */
 #define UT_ASSERT_GREATERTHAN_OR_EQ(TestName, ModuleName, CompareVariable,  ExpectedValue,  PassedMsg, FailureMsg)\
-	UT_CONDITION_EVAL(CompareVariable >= ExpectedValue,  CompareVariable,  ExpectedValue,  TestName, ModuleName, PassedMsg, FailureMsg);
+    UT_CONDITION_EVAL(CompareVariable >= ExpectedValue,  CompareVariable,  ExpectedValue,  TestName, ModuleName, PassedMsg, FailureMsg);
 
 
 /**************************************************************************************************

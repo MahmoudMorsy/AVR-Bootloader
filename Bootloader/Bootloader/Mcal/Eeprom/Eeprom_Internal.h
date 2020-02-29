@@ -16,8 +16,8 @@
 **************************************************************************************************/
 #include "Eeprom.h"
 #if UNIT_TESTING == STD_OFF
-	#include <avr/io.h>
-	#include <avr/interrupt.h>
+    #include <avr/io.h>
+    #include <avr/interrupt.h>
 #endif
 
 /**************************************************************************************************
@@ -28,27 +28,27 @@
 
 /* Stubbing for unit testing */
 #if UNIT_TESTING == STD_ON
-	/* Replacing Registers with Global Variables */
-	#define EEPROM_EECR                                                                 Eeprom_EECR
-	#define EEPROM_EEAR                                                                 Eeprom_EEAR
-	#define EEPROM_EEDR                                                                 Eeprom_EEDR
-	#define EEPROM_SPMCR                                                               Eeprom_SPMCR
-	#define SPMEN                                                                                 0
-	#define EERIE                                                                                 3
-	#define EEMWE                                                                                 2
-	#define EEWE                                                                                  1
-	#define EERE                                                                                  0
-	#undef cli
-	#undef sei
-	#define cli()
-	#define sei()
+    /* Replacing Registers with Global Variables */
+    #define EEPROM_EECR                                                                 Eeprom_EECR
+    #define EEPROM_EEAR                                                                 Eeprom_EEAR
+    #define EEPROM_EEDR                                                                 Eeprom_EEDR
+    #define EEPROM_SPMCR                                                               Eeprom_SPMCR
+    #define SPMEN                                                                                 0
+    #define EERIE                                                                                 3
+    #define EEMWE                                                                                 2
+    #define EEWE                                                                                  1
+    #define EERE                                                                                  0
+    #undef cli
+    #undef sei
+    #define cli()
+    #define sei()
 
 #else
-	/* Putting actual register addresses */
-	#define EEPROM_EECR                                                                        EECR
-	#define EEPROM_EEAR                                                                        EEAR
-	#define EEPROM_EEDR                                                                        EEDR
-	#define EEPROM_SPMCR                                                                      SPMCR
+    /* Putting actual register addresses */
+    #define EEPROM_EECR                                                                        EECR
+    #define EEPROM_EEAR                                                                        EEAR
+    #define EEPROM_EEDR                                                                        EEDR
+    #define EEPROM_SPMCR                                                                      SPMCR
 #endif
 
 #endif /* EEPROM_H_ */
