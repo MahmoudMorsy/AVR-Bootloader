@@ -12,6 +12,21 @@
 /* To enable or disable UNIT TESTING */
 #define UNIT_TESTING            STD_ON
 
+/* Critical Section */
+#if UNIT_TESTING == STD_OFF
+    #include <avr/interrupt.h>
+    #define Sys_StartCriticalSection() cli()
+    #define Sys_StopCriticalSection() sei()
+#else
+    #define Sys_StartCriticalSection()
+    #define Sys_StopCriticalSection()
+#endif
 
+/* Static Keyword */
+#if UNIT_TESTING == STD_OFF
+    #define STATIC static
+#else
+    #define STATIC
+#endif
 
 #endif /* PROJECTSETTINGS_H_ */

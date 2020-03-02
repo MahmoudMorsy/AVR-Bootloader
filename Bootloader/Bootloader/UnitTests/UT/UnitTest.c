@@ -17,6 +17,7 @@
 *                          LIST OF UNIT TEST HEADER FILES TO BE INCLUDED                          *
 **************************************************************************************************/
 #include "Eeprom_ut.h"
+#include "Wdg_ut.h"
 
 /**************************************************************************************************
 *                                     FUNCTIONS IMPLEMENTATION                                    *
@@ -24,13 +25,17 @@
 /* Main function to run all the modules test cases */
 void UT_RunAllTests()
 {
-	UT_PRINT_HEADER();
-	
-	/* USER-MODIFIED-SECTION : List of All unit tests main function to be called here */
-	UT_Eeprom_RunAllTests();
-	UT_SEPARATE_TESTMODULES();
-	UT_Dio_RunAllTests();
-	UT_SEPARATE_TESTMODULES();
+    UT_PRINT_HEADER();
+    
+    /* USER-MODIFIED-SECTION : List of All unit tests main function to be called here */
+    UT_Eeprom_RunAllTests();
+    UT_SEPARATE_TESTMODULES();
+  
+    UT_Dio_RunAllTests();
+	  UT_SEPARATE_TESTMODULES();
+  
+    UT_Wdg_RunAllTests();
+    UT_SEPARATE_TESTMODULES();
 }
 #else
 /* Empty function */

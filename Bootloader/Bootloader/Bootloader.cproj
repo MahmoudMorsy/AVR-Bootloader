@@ -233,6 +233,9 @@
     <Compile Include="Mcal\Wdg\Wdg.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Mcal\Wdg\Wdg_Internal.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="SWC\AppLoader\AppLoader.c">
       <SubType>compile</SubType>
     </Compile>
