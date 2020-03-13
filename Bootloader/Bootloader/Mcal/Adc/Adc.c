@@ -27,7 +27,10 @@ uint8 Adc_SFIOR                                                                 
 uint16 Adc_DATA                                                                                =0;
 #endif
                               
-uint16 Adc_Values[ADC_NUMBER_OF_CHANNELS+1] = {0,0,0,0,0,0,0,0};
+static uint16 Adc_Values[ADC_NUMBER_OF_CHANNELS+1] = {0,0,0,0,0,0,0,0};
+static boolean Adc_Config_Channels[ADC_NUMBER_OF_CHANNELS+1] = {FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE,FALSE};
+static boolean Adc_Convert = FALSE;
+
 
 
 /**************************************************************************************************
@@ -103,8 +106,12 @@ boolean Adc_ReadValue(uint16* Param_ReturnValue, uint8 Param_Channel)
     boolean Loc_ReturnStatus = TRUE;
     if ((Param_ReturnValue != NULL_PTR) && (Param_Channel <=ADC_NUMBER_OF_CHANNELS))
     {
+        /* Add needed channel to array */
+        Adc_Config_Channels[Param_Channel] = TRUE;
         /* Add Value to return to user */
         *Param_ReturnValue = Adc_Values[Param_Channel];
+        /* Allow start conversion */
+        Adc_Convert = TRUE;
     }
     else
     {
@@ -118,25 +125,39 @@ boolean Adc_ReadValue(uint16* Param_ReturnValue, uint8 Param_Channel)
 
 ISR(ADC_vect)
 {
-    /* Get Current Channel */
-    uint8 currentChannel = ADC_ADMUX & 0x07;
-    /* Get Values from both registers */
-    Adc_Values[currentChannel] = ADC_DATA;//ADC_ADCH << 8 | ADC_ADCL;
-    
-    /* if reached last channel reset */
-    if(currentChannel == ADC_NUMBER_OF_CHANNELS)
+    if(Adc_Convert)
     {
-        currentChannel = 255;
+        /* Get Current Channel */
+        uint8 currentChannel = ADC_ADMUX & 0x07;
+        if(Adc_Config_Channels[currentChannel])
+        {            
+            /* Get Values from both registers */
+            Adc_Values[currentChannel] = ADC_DATA;
+    
+            /* if reached last channel reset */
+            if(currentChannel == ADC_NUMBER_OF_CHANNELS)
+            {
+                currentChannel = 255;
+            }
+            else
+            {
+                /* Do nothing */
+            }
+    
+            /* Go to next Channel and Start Conversion */
+            ADC_ADMUX = (ADC_ADMUX & 0xF8 ) | (currentChannel+1);
+            /* Enable start conversion */
+            SET_BIT(ADC_ADCSRA,ADSC);
+            /* Disable Conversion */
+            Adc_Convert = FALSE;
+        }
+        else
+        {
+            /* Do nothing */
+        }        
     }
     else
     {
         /* Do nothing */
-    }
-    
-    /* Go to next Channel and Start Conversion */
-    ADC_ADMUX = (ADC_ADMUX & 0xF8 ) | (currentChannel+1);
-    /* Enable start conversion */
-    SET_BIT(ADC_ADCSRA,ADSC);
-    
-    
+    }        
 }
