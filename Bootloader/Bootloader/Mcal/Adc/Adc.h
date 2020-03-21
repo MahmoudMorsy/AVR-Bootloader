@@ -20,7 +20,7 @@
 /**************************************************************************************************
 *                                       FUNCTION PROTOTYPES                                       *
 **************************************************************************************************/
-
+void Adc_Main();
 boolean Adc_Init(uint8 Param_ChannelNumber, uint8 Param_VolageReference, uint8 Param_PreScaler);
 boolean Adc_ReadValue(uint16* Param_ReturnValue, uint8 Param_Channel);
 

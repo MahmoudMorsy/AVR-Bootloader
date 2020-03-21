@@ -32,11 +32,11 @@
 int main(void)
 {
     DDRA = 0xFF;
-    Adc_Init(CHANNAL0,AVCC,7);
+    Adc_Init(AVCC,7,TRUE);
     while (1)
     {
         uint16 value = 0;
-        Adc_ReadValue(&value,CHANNAL0);
+        Adc_ReadValue(&value,CHANNAL1);
     }
     return 0;
 }

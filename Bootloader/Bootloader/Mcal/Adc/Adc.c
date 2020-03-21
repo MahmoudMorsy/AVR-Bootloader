@@ -27,11 +27,9 @@ uint8 Adc_SFIOR                                                                 
 uint16 Adc_DATA                                                                                =0;
 #endif
                               
-static volatile uint16 Adc_Values[ADC_NUMBER_OF_CHANNELS+1] = {0,0,0,0,0,0,0,0};
-static boolean Adc_Async = FALSE;
-
-
-
+static volatile uint16 Adc_Values[ADC_NUMBER_OF_CHANNELS+1] = {0};
+static volatile boolean Adc_Config_Channels[ADC_NUMBER_OF_CHANNELS+1] = {FALSE};
+static volatile boolean Adc_Async = FALSE;
 /**************************************************************************************************
 *                                     FUNCTIONS IMPLEMENTATION                                    *
 **************************************************************************************************/
@@ -105,6 +103,31 @@ boolean Adc_Init(uint8 Param_VolageReference, uint8 Param_PreScaler, boolean Par
     return Loc_ReturnStatus;
 }
 
+void Adc_Main()
+{
+    if (Adc_Async)
+    {
+        for (int Local_Channel=0; Local_Channel<=ADC_NUMBER_OF_CHANNELS; Local_Channel++)
+        {
+            if(Adc_Config_Channels[Local_Channel])
+            {
+                 /* Choose channel according to user input */
+                 ADC_ADMUX = (ADC_ADMUX & 0xF8 ) | Local_Channel;
+                 /* Enable start conversion */
+                 SET_BIT(ADC_ADCSRA,ADSC);
+            }
+            else
+            {
+                /* Do Nothing */
+            }
+        }
+    }
+    else
+    {
+        /* Do Nothing */
+    } 
+}
+
 boolean Adc_ReadValue(uint16* Param_ReturnValue, uint8 Param_ChannelNumber)
 {
     boolean Loc_ReturnStatus = TRUE;
@@ -141,7 +164,7 @@ boolean Adc_ReadValue(uint16* Param_ReturnValue, uint8 Param_ChannelNumber)
 ISR(ADC_vect)
 {
     /* Get Current Channel */
-    uint8 currentChannel = ADC_ADMUX & 0x07;       
+    uint8 currentChannel = ADC_ADMUX & 0x07;    
     /* Get Values from both registers */
     Adc_Values[currentChannel] = ADC_DATA;
  }
